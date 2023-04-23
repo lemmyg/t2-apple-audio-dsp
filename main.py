@@ -33,7 +33,7 @@ def installConf(model):
             print(f"Copying: {configPath} to {INSTALL_PATH}/10-{filename}")
             shutil.copy2(configPath, f"{INSTALL_PATH}/10-{filename}")
     except Exception as e:
-        print("Error found: {}".format(e))
+        print(f"Error found: {e}")
         return False
     return True
 
