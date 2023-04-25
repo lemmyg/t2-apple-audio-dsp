@@ -20,11 +20,9 @@ sudo apt install swh-plugins
 #compile and install librnnoise_ladspa plugin
 git clone https://github.com/werman/noise-suppression-for-voice.git
 cd noise-suppression-for-voice
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF ..
-make
-sudo make install
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF
+make -c build
+sudo make -c build install
 ```
 
 Next, clone the git branch and install the configuration by executing the following commands:
