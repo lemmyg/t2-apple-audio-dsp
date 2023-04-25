@@ -17,7 +17,16 @@ sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
 sudo apt update
 sudo apt install pipewire wireplumber pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
 sudo apt install swh-plugins
+#compile and install librnnoise_ladspa plugin
+git clone https://github.com/werman/noise-suppression-for-voice.git
+cd noise-suppression-for-voice
+mkdir build
+cd build
+cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF ..
+make
+sudo make install
 ```
+
 Next, clone the git branch and install the configuration by executing the following commands:
 
 ```sh
