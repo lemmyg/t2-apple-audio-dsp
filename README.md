@@ -2,8 +2,6 @@
 
 This project aims to address the low audio signal issue caused by the T2 audio driver in the built in microphone in Linux by providing a Pipewire filterchain configuration that mixes and normalizes the mic digital audio signal in real-time. For more information about the T2 kernel team, please visit [T2 kernel team](https://wiki.t2linux.org/)
 
-
-
 ## Installation instructions
 
 Before proceeding with the installation, please follow the [t2-audio](https://wiki.t2linux.org/guides/audio-config) instructions and install Pipewire.
@@ -40,6 +38,13 @@ To uninstall this configuration, please execute the following command in your te
 ```sh
 sudo rm /etc/pipewire/pipewire.conf.d/*t2_161_mic.conf
 ```
+## References
+
+[normalization-chain](https://forum.endeavouros.com/t/pipewire-filter-chains-normalize-audio-noise-suppression/31661)
+
+[librnnoise_ladspa-plugin](https://github.com/werman/noise-suppression-for-voice)
+
+[pipewire-filtercahin](https://docs.pipewire.org/page_module_filter_chain.html)
 
 ### Disclaimer
 This configuration is designed to normalize the signal and limit it to -6 dB and should not cause any issues. However, please note that this configuration comes without any warranty and you use it at your own risk.
