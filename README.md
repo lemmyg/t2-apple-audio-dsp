@@ -19,8 +19,8 @@ sudo apt install swh-plugins
 git clone https://github.com/werman/noise-suppression-for-voice.git
 cd noise-suppression-for-voice
 cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF
-make -c build
-sudo make -c build install
+make -C build
+sudo make -C build install
 ```
 
 Next, clone the git branch and install the configuration by executing the following commands:
