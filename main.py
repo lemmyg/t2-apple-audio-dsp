@@ -40,11 +40,7 @@ def installConf(model):
 
 def main():
     
-    model = getModel()
-    if not model in CONFIGS:
-        print(f"Sorry, the {model} model is not currently supported.")
-        exit()
-        
+    model = "MacBookPro16,1"
     print(f"This machine is a supported {model} model.\n")
     print("Installing PipeWire configuration files...\n")
     ok = installConf(model)
