@@ -1,4 +1,4 @@
-## Improving Audio Quality on MacBook Pro T2 Builtin Microphone in Linux Using Pipewire Filterchain Config
+## Improving Audio Quality on MacBook Pro T2 Builtin Microphones in Linux Using Pipewire Filterchain Config
 
 This project aims to address the low audio signal issue caused by the T2 audio driver in the built in microphone in Linux by providing a Pipewire filterchain configuration that mixes and normalizes 3 mics digital audio signal in real-time. For more information about the T2 kernel team, please visit [T2 kernel team](https://wiki.t2linux.org/)
 
