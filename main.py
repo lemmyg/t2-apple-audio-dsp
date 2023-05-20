@@ -5,9 +5,12 @@ import glob
 import os
 import sys
 import shutil
+import fnmatch
+import traceback
 
 CONFIGS = {
-    "MacBookPro16,1": ["config/t2_161_mic.conf"],
+    "*":                "config/10-t2_mic.conf",
+    "MacBookPro16,*":   "config/10-t2_161_speakers.conf",
 }
 
 INSTALL_PATH = "/etc/pipewire/pipewire.conf.d"
@@ -23,31 +26,31 @@ def getModel():
 
 
 def installConf(model):
-    
     # clean up the existing config files
     try:
-        for configPath in glob.glob(f"{INSTALL_PATH}/*t2_161_mic.conf"):
+        for configPath in glob.glob(f"{INSTALL_PATH}/*-t2_*.conf"):
              os.remove(configPath)
-        for configPath in CONFIGS.get(model):
-            filename = os.path.basename(configPath)
-            print(f"Copying: {configPath} to {INSTALL_PATH}/10-{filename}")
-            shutil.copy2(configPath, f"{INSTALL_PATH}/10-{filename}")
+        for configModel, configPath in CONFIGS.items():
+            if fnmatch.fnmatch(model, configModel):
+                filename = os.path.basename(configPath)
+                print(f"Copying: {configPath} to {INSTALL_PATH}/{filename}")
+                shutil.copy2(configPath, f"{INSTALL_PATH}/{filename}")
+            else:
+                print(f"Ignoring: {configModel} and {configPath}, not supported for model {model}")
     except Exception as e:
-        print(f"Error found: {e}")
-        return False
-    return True
+        print(f"Could not install PipeWire configuration files: {e}")
+        traceback.print_exc()
+        exit()
+    return
 
 
 def main():
     
-    model = "MacBookPro16,1"
-    print(f"This machine is a supported {model} model.\n")
-    print("Installing PipeWire configuration files...\n")
-    ok = installConf(model)
-    if not ok:
-        print("Could not install PipeWire configuration files.")
-        print("This program will now exit.")
-        exit()
+    model = getModel()
+    print(f"Found {model} model.")
+    print("Installing PipeWire configuration files...")
+    installConf(model)
+    
     
 if __name__ == "__main__":
     main()
