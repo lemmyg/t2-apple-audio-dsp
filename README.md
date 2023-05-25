@@ -26,7 +26,7 @@ sudo make -C build install
 Next, clone the git branch and install the configuration by executing the following commands:
 
 ```sh
-git clone https://github.com/lemmyg/t2-apple-mic-dsp.git
+git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
 cd t2-apple-mic-dsp
 bash install.sh
 ```
