@@ -41,6 +41,9 @@ sudo rm /etc/pipewire/pipewire.conf.d/10-t2_161_speakers.conf
 sudo rm -r /usr/share/pipewire/devices/apple
 ```
 
+### Disclaimer
+This project has been create to share the settings with [T2 kernel team](https://wiki.t2linux.org/). Note that the project is still under working in progress and may not be safe for general usage. Misconfigured settings in userspace could damage speakers permanently.
+
 ### Buildin 3 microphone  DSP config
 
 This project aims to address the low audio signal issue caused by the T2 audio driver in the built in microphone in Linux by providing a Pipewire filterchain configuration that mixes and normalizes 3 mics digital audio signal in real-time. For more information about the T2 kernel team, please visit [T2 kernel team](https://wiki.t2linux.org/)
