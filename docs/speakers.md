@@ -17,12 +17,14 @@ Note that this configuration has been tested on Ubuntu 22.04 and 22.10 and above
 For Ubuntu user, 22.10 is recommended as Pipewire is properly integrated.
 
 Install the following dependecies:
+
 ```sh
 sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
 sudo apt install pipewire pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
 sudo apt install wireplumber lsp-plugins calf-plugins
 ```
 clone the git branch and install the FIRs config:
+
 ```sh
 git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
 cd t2-apple-audio-dsp
@@ -33,6 +35,7 @@ Reboot and open the audio settings.
 Do not select "Apple Audio Driver Speakers" directly as the audio will be send directly to the speakers without any adjustment.
 
 ## Uninstall
+
 ```sh
 sudo rm /etc/pipewire/pipewire.conf.d/10-t2_161_speakers.conf
 sudo rm -r /usr/share/pipewire/devices/apple
