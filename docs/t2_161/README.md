@@ -14,6 +14,7 @@ macbook_pro_t2_16_1-48k_1.mdat content
  - Filters RMS tweeter Average: Measurement generated from tweeters EQ filters.
  - Filters RMS Woofer Average: Measurement generated from Woofer EQ filters.
  - Linux with FIRs: Measurement taken using generated FIRs for macbook pro 16,1.
+ - FIRs were exported using Export Impulse response as WAV, 32bit, minimun phase version, apply IR Window, 48kHz
  
  
  Woofer generation based in RMS Woofer Average 1
