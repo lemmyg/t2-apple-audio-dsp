@@ -1,4 +1,47 @@
-## Improving Audio Quality on MacBook Pro T2 Builtin Microphones in Linux Using Pipewire Filterchain Config
+### MacBook Pro T2 Pipewire Filterchain Configs
+
+
+### Macbook pro 16 2019 speakers DSP Config
+
+Thanks to chadmed and Asahi Linux.
+
+Based on Asahi Linux speakers filterchain configs.
+
+New FIRs were created measuring a MacBook Pro 16,1 2019 with UMIK-1 mic and manually created FIRs of EQ filters using REW.
+
+For more information about Asahi audio, please visit the original project at [asahi-audio](https://github.com/chadmed/asahi-audio)
+
+## Installation instructions
+
+First follow [t2-audio](https://wiki.t2linux.org/guides/audio-config) instructions and install pipewire.
+
+Once the audio is working, you can install the FIRs config in your system.
+Note that this configuration has been tested on Ubuntu 22.04 and 22.10 and above.
+For Ubuntu user, 22.10 is recommended as Pipewire is properly integrated.
+
+Install the following dependecies:
+```sh
+sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
+sudo apt install pipewire pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
+sudo apt install wireplumber lsp-plugins calf-plugins
+```
+clone the git branch and install the FIRs config:
+```sh
+git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
+cd t2-apple-audio-dsp
+bash install.sh --config speakers
+```
+Reboot and open the audio settings.
+"Apple Audio Driver Speakers" should be at 100% and "MacBook Pro T2 DSP Speakers" selected as main volumen control. Usually at 75% max.
+Do not select "Apple Audio Driver Speakers" directly as the audio will be send directly to the speakers without any adjustment.
+
+## Uninstall
+```sh
+sudo rm /etc/pipewire/pipewire.conf.d/10-t2_161_speakers.conf
+sudo rm -r /usr/share/pipewire/devices/apple
+```
+
+### Buildin 3 microphone  DSP config
 
 This project aims to address the low audio signal issue caused by the T2 audio driver in the built in microphone in Linux by providing a Pipewire filterchain configuration that mixes and normalizes 3 mics digital audio signal in real-time. For more information about the T2 kernel team, please visit [T2 kernel team](https://wiki.t2linux.org/)
 
@@ -6,7 +49,7 @@ This project aims to address the low audio signal issue caused by the T2 audio d
 
 Before proceeding with the installation, please follow the [t2-audio](https://wiki.t2linux.org/guides/audio-config) instructions and install Pipewire.
 
-Please note that this configuration has only been tested on version 22.10. If you are an Ubuntu user, we recommend using version 22.10 as Pipewire is properly integrated with this version.
+Please note that this configuration has only been tested on version 22.10 and above. If you are an Ubuntu user, we recommend using version 22.10 as Pipewire is properly integrated with this version.
 
 To install the configuration, first install the following dependencies:
 
@@ -26,9 +69,9 @@ sudo make -C build install
 Next, clone the git branch and install the configuration by executing the following commands:
 
 ```sh
-git clone -b develop https://github.com/lemmyg/t2-apple-mic-dsp.git
-cd t2-apple-mic-dsp
-bash install.sh
+git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
+cd t2-apple-audio-dsp
+bash install.sh --config mic
 ```
 Reboot your device and open the audio settings. You should see "MacBook Pro T2 DSP Mic" as your new normalized source. Please note that the original source, "Apple Audio Device Builtin Microphone," should be set to 100%.
 
@@ -36,7 +79,7 @@ Reboot your device and open the audio settings. You should see "MacBook Pro T2 D
 To uninstall this configuration, please execute the following command in your terminal:
 
 ```sh
-sudo rm /etc/pipewire/pipewire.conf.d/*t2_161_mic.conf
+sudo rm /etc/pipewire/pipewire.conf.d/10-t2_mic.conf
 ```
 ## References
 
