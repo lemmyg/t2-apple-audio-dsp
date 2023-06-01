@@ -92,5 +92,7 @@ sudo rm /etc/pipewire/pipewire.conf.d/10-t2_mic.conf
 
 [pipewire-filtercahin](https://docs.pipewire.org/page_module_filter_chain.html)
 
+[asahi-audio](https://github.com/chadmed/asahi-audio)
+
 ### Disclaimer
 This configuration is designed to normalize the signal and limit it to -6 dB and should not cause any issues. However, please note that this configuration comes without any warranty and you use it at your own risk.
