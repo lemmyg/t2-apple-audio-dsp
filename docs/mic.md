@@ -38,15 +38,6 @@ To uninstall this configuration, please execute the following command in your te
 ```sh
 sudo rm /etc/pipewire/pipewire.conf.d/10-t2_mic.conf
 ```
-## References
-
-[normalization-chain](https://forum.endeavouros.com/t/pipewire-filter-chains-normalize-audio-noise-suppression/31661)
-
-[librnnoise_ladspa-plugin](https://github.com/werman/noise-suppression-for-voice)
-
-[pipewire-filtercahin](https://docs.pipewire.org/page_module_filter_chain.html)
-
-[asahi-audio](https://github.com/chadmed/asahi-audio)
 
 ### Disclaimer
 This configuration is designed to normalize the signal and limit it to -6 dB and should not cause any issues. However, please note that this configuration comes without any warranty and you use it at your own risk.
