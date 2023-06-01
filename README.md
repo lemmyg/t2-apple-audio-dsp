@@ -6,6 +6,7 @@ The project aims to create Pipewire filtechain configs to adjust the audio level
 Please follow the instruction for each of the config.
 
 [mic dsp config](docs/mic.md)
+
 [speakers dsp config](docs/speakers.md)
 
 ### Disclaimer
