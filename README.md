@@ -1,4 +1,4 @@
-### MacBook Pro 16 2019 builin mic and speakers pipewire Filterchain Configs
+### MacBook Pro 16 2019 buildin mic and speakers pipewire Filterchain configs
 
 This project is part of [T2 kernel team](https://wiki.t2linux.org/)
 The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and 6 channels speakers in Linux. Note that speakers config is specific for Macbook Pro 16 2019 models only.
