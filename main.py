@@ -5,12 +5,15 @@ import glob
 import os
 import sys
 import shutil
-
-CONFIGS = {
-    "MacBookPro16,1": ["config/t2_161_mic.conf"],
+import fnmatch
+import traceback
+import argparse
+CONFIG = {
+    "mic":      {"*":                   [["config/10-t2_mic.conf", "/etc/pipewire/pipewire.conf.d"]]},
+    "speakers": {"MacBookPro16,*":      [["config/10-t2_161_speakers.conf", "/etc/pipewire/pipewire.conf.d"],
+                                         ["firs/t2_161/*.wav", "/usr/share/pipewire/devices/apple"]]}
 }
 
-INSTALL_PATH = "/etc/pipewire/pipewire.conf.d"
 
 
 def getModel():
@@ -22,32 +25,50 @@ def getModel():
     return stdout.decode('utf-8').strip()
 
 
-def installConf(model):
-    
+def installConf(model, configNames):
     # clean up the existing config files
+    print(f"Installing PipeWire configuration files for {model}")
     try:
-        for configPath in glob.glob(f"{INSTALL_PATH}/*t2_161_mic.conf"):
-             os.remove(configPath)
-        for configPath in CONFIGS.get(model):
-            filename = os.path.basename(configPath)
-            print(f"Copying: {configPath} to {INSTALL_PATH}/10-{filename}")
-            shutil.copy2(configPath, f"{INSTALL_PATH}/10-{filename}")
+        for config in configNames:
+            for configModel, paths in CONFIG[config].items():
+                if not fnmatch.fnmatch(model, configModel):
+                    # early check
+                    print(f"Ignoring: {configModel} and {configPath}, not supported for model {model}")
+                    continue
+                for configPattern, installPath in paths:
+                    filePattern = os.path.basename(configPattern)
+                    # clean the destination
+                    for configPath in glob.glob(f"{installPath}/{filePattern}"):
+                         # print(f"cleaning {configPath}")
+                         os.remove(configPath)
+            
+                    # copy files
+                    for configPath in glob.glob(configPattern):
+                        filename = os.path.basename(configPath)
+                        print(f"Copying: {configPath} to {installPath}/{filename}")
+                        shutil.copy2(configPath, f"{installPath}/{filename}")
     except Exception as e:
-        print(f"Error found: {e}")
-        return False
-    return True
+        print(f"Could not install PipeWire configuration files: {e}")
+        traceback.print_exc()
+        exit()
+    return
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--config', choices=['mic', 'speakers', 'all'], default="all")
+    args = parser.parse_args()
+    if args.config == "all":
+        configs = ["mic", "speakers"]
+    elif args.config == "mic":
+        configs = ["mic"]
+    elif args.config == "speakers":
+        configs = ["mic"]
+    else:
+        raise
+    model = getModel()
+    installConf(model, configs)
     
-    model = "MacBookPro16,1"
-    print(f"This machine is a supported {model} model.\n")
-    print("Installing PipeWire configuration files...\n")
-    ok = installConf(model)
-    if not ok:
-        print("Could not install PipeWire configuration files.")
-        print("This program will now exit.")
-        exit()
     
 if __name__ == "__main__":
     main()
