@@ -56,7 +56,7 @@ def installConf(model, configNames):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--config', choices=['mic', 'speakers', 'all'], default="all")
+    parser.add_argument('--config', choices=['mic', 'speakers', 'all'], default="mic")
     args = parser.parse_args()
     if args.config == "all":
         configs = ["mic", "speakers"]
