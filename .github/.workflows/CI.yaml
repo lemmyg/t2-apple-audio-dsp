@@ -34,7 +34,7 @@ jobs:
           files: |
             /tmp/output/release-source-speakers.zip
           tag_name: ${{ github.ref }}
-          name: {{ steps.extract_tag.outputs.tag }}
+          name: ${{ steps.extract_tag.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
