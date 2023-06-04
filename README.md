@@ -5,9 +5,9 @@ The project aims to create Pipewire filtechain configs to adjust the audio level
 
 Please follow the instruction for each of the config.
 
-[mic dsp config](docs/mic.md)
+[mic dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/mic)
 
-[speakers dsp config](docs/speakers.md)
+[speakers dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161)
 
 ## References
 
