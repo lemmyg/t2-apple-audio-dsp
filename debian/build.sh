@@ -2,7 +2,6 @@
 mkdir temp
 mkdir temp/DEBIAN
 cp debian/control temp/DEBIAN/control
-cp debian/prerm temp/DEBIAN/control
 
 mkdir -p temp/etc/pipewire/pipewire.conf.d
 cp  config/10-t2_161_speakers.conf temp/etc/pipewire/pipewire.conf.d
