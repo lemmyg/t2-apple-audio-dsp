@@ -24,7 +24,7 @@ jobs:
           rm -r firs/previous
           # Create a zip files containing all the files in the 'mic' and 'speakers' folders
           mkdir -p /tmp/output
-          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstalls.sh config firs
+          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstall.sh config firs
       
       - name: Extract tag version
         id: extract_tag
