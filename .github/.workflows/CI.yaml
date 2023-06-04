@@ -6,7 +6,7 @@ on:
       - 't2-apple-speakers-v*' # Trigger on any tag starting with 'v'
 
 jobs:
-  auto_release_mic:
+  auto_release_speakers:
     runs-on: ubuntu-latest
     
     defaults:
