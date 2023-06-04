@@ -3,7 +3,7 @@ name: Auto Release Workflow
 on:
   create:
     tags:
-      - 't2-apple-speakers-v*' # Trigger on any tag starting with 'v'
+      - 'v*' # Trigger on any tag starting with 'v'
 
 jobs:
   auto_release_speakers:
