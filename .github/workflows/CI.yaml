@@ -23,7 +23,6 @@ jobs:
           # remove previus FIRs
           mkdir -p /tmp/output
           bash debian/build.sh
-          move t2-apple-audio-dsp-speakers161_1.0.0_amd64.deb /tmp/output
 
       - name: Generate Release Source
         run: |
@@ -42,7 +41,7 @@ jobs:
         with:
           files: |
             /tmp/output/release-source-speakers.zip
-            /tmp/output/t2-apple-audio-dsp-speakers161_1.0.0_amd64.deb
+            t2-apple-audio-dsp-speakers161_1.0.0_amd64.deb
           tag_name: ${{ github.ref }}
           name: ${{ steps.extract_tag.outputs.tag }}
         env:
