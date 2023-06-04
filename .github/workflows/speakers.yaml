@@ -5,7 +5,7 @@ on:
     tags:
       - '*-v*' # Trigger on any tag starting with 'v'
     branches:
-       - speakers-*
+      - speakers-*
 
 jobs:
   auto_release_speakers:
