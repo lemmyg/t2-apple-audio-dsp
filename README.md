@@ -1,23 +1,39 @@
-### MacBook Pro 16 2019 buildin mic and speakers pipewire Filterchain configs
+## macbook 16,1 2019 Rew messurements
 
-This project is part of [T2 kernel team](https://wiki.t2linux.org/)
-The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and 6 channels speakers in Linux. Note that speakers config is specific for Macbook Pro 16 2019 models only.
+Recorded at -12dbs 75SPL 
+Position 45 degrees around 30 cm from the speakers
+sample rate 48k
+Using mic UMIK-1
 
-Please follow the instruction for each of the config.
 
-[mic dsp config](docs/mic.md)
+macbook_pro_t2_16_1-48k_1.mdat content
+ - Alesis external speakers: measurement of home speakers. Not calibrated just for reference.
+ - MacOS measurement: just for reference.
+ - RMS tweeters Average: Linux tweeters taken without any FIRs. Contains the EQ filters to generate the FIR.
+ - RMS woofers Average: Linux woofers taken without any FIRs. Contains the EQ filters to generate the FIR.
+ - Filters RMS tweeter Average: Measurement generated from tweeters EQ filters.
+ - Filters RMS Woofer Average: Measurement generated from Woofer EQ filters.
+ - Linux with FIRs: Measurement taken using generated FIRs for macbook pro 16,1.
+ - FIRs were exported using Export Impulse response as WAV, 32bit, minimun phase version, apply IR Window, 48kHz
+ 
+ 
+ Woofer generation based in RMS Woofer Average 1
+ 
+ - generic
+ - full range speakers
+ - LF Cut 50
+ - LF scope 24db
+ - targe level 65 db
+ - Match range 20-20000
+ - boost 5,5,1
+ - Cross over filter
+ - LR8 HP 100hz
+ - LR8 LP 2000hz
+ 
+Tweeter
 
-[speakers dsp config](docs/speakers.md)
-
-## References
-
-[normalization-chain](https://forum.endeavouros.com/t/pipewire-filter-chains-normalize-audio-noise-suppression/31661)
-
-[librnnoise_ladspa-plugin](https://github.com/werman/noise-suppression-for-voice)
-
-[pipewire-filtercahin](https://docs.pipewire.org/page_module_filter_chain.html)
-
-[asahi-audio](https://github.com/chadmed/asahi-audio)
-
-### Disclaimer
-Note that this project comes without any warranty. Use on your own risk.
+ - generic
+ - speaker driver
+ - targe level 75 db
+ - LR8 HP 4000 Hz
+ - LR2 LP 20000 Hz

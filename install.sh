@@ -1,9 +1,11 @@
 #!/bin/bash
 # SPDX-License-Identifier: MIT
 # (C) 2023 Linux T2 Kernel Team
-echo "Install DSP config as root ..."
-#cmd = 'python3 main.py "$@"'
-sudo bash -c 'python3 main.py "$@"' -- "$@"
+echo "Install Macbook Pro 16.1 speakers DSP config as root"
+echo "Copying 10-t2_161_speakers.conf to /etc/pipewire/pipewire.conf.d"
+sudo cp  config/10-t2_161_speakers.conf /etc/pipewire/pipewire.conf.d
+echo "Copying firs/*.wav to /usr/share/pipewire/devices/apple"
+sudo cp firs/*.wav /usr/share/pipewire/devices/apple
 echo "Restarting Pipewire for current user ...."
 systemctl --user restart wireplumber pipewire pipewire-pulse
 echo "Note that the first time you may need to restart your computer."
