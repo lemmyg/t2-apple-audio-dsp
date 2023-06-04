@@ -1,7 +1,7 @@
 name: Auto Release Workflow
 
 on:
-  create:
+  push:
     tags:
       - 'v*' # Trigger on any tag starting with 'v'
 
