@@ -24,13 +24,13 @@ jobs:
           mkdir -p /tmp/output
           bash debian/build.sh
 
-      - name: Generate Release Source
-        run: |
-          # remove previus FIRs
-          rm -r firs/previous
-          # Create a zip files containing all the files in the 'mic' and 'speakers' folders
-          mkdir -p /tmp/output
-          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstall.sh config firs
+#      - name: Generate Release Source
+#        run: |
+#           remove previus FIRs
+#          rm -r firs/previous
+#           Create a zip files containing all the files in the 'mic' and 'speakers' folders
+#          mkdir -p /tmp/output
+#          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstall.sh config firs
       
       - name: Extract tag version
         id: extract_tag
