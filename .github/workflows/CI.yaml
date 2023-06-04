@@ -1,7 +1,7 @@
 name: Auto Release Workflow
 
 on:
-  create:
+  push:
     tags:
       - 'v*' # Trigger on any tag starting with 'v'
 
@@ -20,9 +20,11 @@ jobs:
 
       - name: Generate Release Source
         run: |
+          # remove previus FIRs
+          rm -r firs/previous
           # Create a zip files containing all the files in the 'mic' and 'speakers' folders
           mkdir -p /tmp/output
-          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstalls.sh config firs -x firs/previous/*
+          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstalls.sh config firs
       
       - name: Extract tag version
         id: extract_tag
