@@ -26,9 +26,9 @@ sudo apt install wireplumber lsp-plugins calf-plugins swh-plugins
 clone the git branch and install the FIRs config:
 
 ```sh
-git clone -b macbookT2_16_1 https://github.com/lemmyg/asahi-audio.git
-cd asahi-audio
-bash mac-audio.sh
+git clone -b speakers_161 https://github.com/lemmyg/t2-apple-audio-dsp.git
+cd t2-apple-audio-dsp
+bash install.sh
 ```
 Reboot and open the audio settings.
 "Apple Audio Driver Speakers" should be at 100% and "MacBook Pro T2 DSP Speakers" selected as main volumen control. Usually at 75% max.
@@ -36,8 +36,7 @@ Do not select "Apple Audio Driver Speakers" directly as the audio will be send d
 
 ## Uninstall
 ```sh
-sudo rm /etc/pipewire/pipewire.conf.d/10-*-sink.conf
-sudo rm -r /usr/share/pipewire/devices/apple
+bash uninstall.sh
 ```
 
 
