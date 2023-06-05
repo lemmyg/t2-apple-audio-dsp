@@ -19,10 +19,12 @@ jobs:
         uses: actions/checkout@v3
         
       - name: Generate Debian Package
+        id: generate_deb
         run: |
           # remove previus FIRs
           mkdir -p /tmp/output
           bash debian/build.sh
+          echo "file=$(ls t2-apple-audio-dsp-*)" >> $GITHUB_OUTPUT
 
 #      - name: Generate Release Source
 #        run: |
@@ -40,8 +42,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: |
-            /tmp/output/release-source-speakers.zip
-            t2-apple-audio-dsp-speakers161_1.0.0_amd64.deb
+            ${{ steps.generate_deb.outputs.file }}
           tag_name: ${{ github.ref }}
           name: ${{ steps.extract_tag.outputs.tag }}
         env:
