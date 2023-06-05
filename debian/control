@@ -1,5 +1,5 @@
 Package: t2-apple-audio-dsp-speakers161
-Version: 0.0.3
+Version: 0.3.0
 Maintainer: lemmyg@gmail.com
 Section: sound
 Architecture: amd64
