@@ -26,9 +26,9 @@ sudo make -C build install
 Next, clone the git branch and install the configuration by executing the following commands:
 
 ```sh
-git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
+git clone -b mic https://github.com/lemmyg/t2-apple-audio-dsp.git
 cd t2-apple-audio-dsp
-bash install.sh --config mic
+bash install.sh
 ```
 Reboot your device and open the audio settings. You should see "MacBook Pro T2 DSP Mic" as your new normalized source. Please note that the original source, "Apple Audio Device Builtin Microphone," should be set to 100%.
 
