@@ -36,7 +36,7 @@ Reboot your device and open the audio settings. You should see "MacBook Pro T2 D
 To uninstall this configuration, please execute the following command in your terminal:
 
 ```sh
-bash uninstall.sh or sudo rm /etc/pipewire/pipewire.conf.d/10-t2_mic.conf
+bash uninstall.sh
 ```
 
 ### Disclaimer
