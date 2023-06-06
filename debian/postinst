@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# check if we are being called as part of an install
+if [ "$1" = "configure" ] ; then
+  # suggest the user to restart the session
+  warning=$(cat <<EOF
+We recommend that you log out and log back in (or restart your session) for all changes to take effect.
+If MacBook Pro T2 DSP Mic output doesn't appear, try restarting the pipewire service:
+systemctl --user restart wireplumber pipewire pipewire-pulse
+EOF
+)
+  echo "$warning"
+fi
+
+# dpkg maintainer script policy is to always exit 0
+exit 0
