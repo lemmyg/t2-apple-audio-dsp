@@ -19,7 +19,6 @@ cp firs/*.wav temp/usr/share/pipewire/devices/apple
 output="${package}_${version}_amd64.deb"
 echo "package ${output}"
 dpkg-deb --root-owner-group -Zgzip --build temp $output
-echo "tag=$(ls t2-apple-audio-dsp-*)"
 # remove temp folder
 rm -r temp
 
