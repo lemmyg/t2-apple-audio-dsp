@@ -36,7 +36,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PL
 make -C build
 sudo make -C build install
 ```
-Once installed you need to replace the following blocks `/etc/pipewire/pipewire.conf.d/10-t2_mic.conf`
+Once installed you need to replace the following blocks in `/etc/pipewire/pipewire.conf.d/10-t2_mic.conf`
 Add this block in nodes:
 
 ```yaml
