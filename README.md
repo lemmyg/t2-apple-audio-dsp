@@ -15,12 +15,6 @@ sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
 sudo apt update
 sudo apt install pipewire wireplumber pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
 sudo apt install swh-plugins
-#compile and install librnnoise_ladspa plugin
-git clone https://github.com/werman/noise-suppression-for-voice.git
-cd noise-suppression-for-voice
-cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF
-make -C build
-sudo make -C build install
 ```
 
 Next, clone the git branch and install the configuration by executing the following commands:
@@ -31,6 +25,43 @@ cd t2-apple-audio-dsp
 bash install.sh
 ```
 Reboot your device and open the audio settings. You should see "MacBook Pro T2 DSP Mic" as your new normalized source. Please note that the original source, "Apple Audio Device Builtin Microphone," should be set to 100%.
+
+Optional librnnoise_ladspa. For Ubuntu you need to compile it by your own. 
+
+```sh
+#compile and install librnnoise_ladspa plugin
+git clone https://github.com/werman/noise-suppression-for-voice.git
+cd noise-suppression-for-voice
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PLUGIN=OFF -DBUILD_LV2_PLUGIN=OFF -DBUILD_LADSPA_PLUGIN=ON -DBUILD_AU_PLUGIN=OFF -DBUILD_AUV3_PLUGIN=OFF -DBUILD_TESTS=OFF
+make -C build
+sudo make -C build install
+```
+Once installed you need to replace the following blocks in `/etc/pipewire/pipewire.conf.d/10-t2_mic.conf`
+Add this block in nodes:
+
+```yaml
+                    {
+                        type   = ladspa
+                        name   = rnnoise
+                        plugin = /usr/local/lib/ladspa/librnnoise_ladspa.so
+                        label  = noise_suppressor_stereo
+                        control = {
+                            "VAD Threshold (%)" 85.0
+                            #"VAD Grace Period (ms)" 100.0
+                            #"Retroactive VAD Grace (ms)" 0.0
+                        }
+                    }
+```
+Replace links with:
+
+```yaml
+                links = [
+                    { output = "mix:Out" input = "preamp:Input" }
+                    { output = "preamp:Output" input = "rnnoise:Input (L)" }
+                    { output = "rnnoise:Output (L)" input = "compressor:Left input" }
+                    { output = "compressor:Left output" input = "limiter:Input 1" }
+                ]
+```
 
 ## Uninstall
 To uninstall this configuration, please execute the following command in your terminal:
