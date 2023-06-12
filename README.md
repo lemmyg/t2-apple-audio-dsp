@@ -26,7 +26,7 @@ bash install.sh
 ```
 Reboot your device and open the audio settings. You should see "MacBook Pro T2 DSP Mic" as your new normalized source. Please note that the original source, "Apple Audio Device Builtin Microphone," should be set to 100%.
 
-Optional librnnoise_ladspa. For Ubuntu you need to compiled by your own. 
+Optional librnnoise_ladspa. For Ubuntu you need to compile it by your own. 
 
 ```sh
 #compile and install librnnoise_ladspa plugin
