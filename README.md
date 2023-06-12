@@ -20,6 +20,7 @@ Install the following dependecies:
 
 ```sh
 sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
+sudo apt update
 sudo apt install pipewire pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
 sudo apt install wireplumber lsp-plugins calf-plugins swh-plugins
 ```
