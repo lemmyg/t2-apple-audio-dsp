@@ -31,6 +31,12 @@ git clone -b speakers_161 https://github.com/lemmyg/t2-apple-audio-dsp.git
 cd t2-apple-audio-dsp
 bash install.sh
 ```
+
+To restart pipewire:
+
+```sh
+systemctl --user restart pipewire pipewire-pulse wireplumber
+```
 Reboot and open the audio settings.
 "Apple Audio Driver Speakers" should be at 100% and "MacBook Pro T2 DSP Speakers" selected as main volumen control. Usually at 75% max.
 Do not select "Apple Audio Driver Speakers" directly as the audio will be send directly to the speakers without any adjustment.
