@@ -1,8 +1,8 @@
 Package: t2-apple-audio-dsp-speakers161
-Version: 0.1.2
+Version: 0.1.3
 Maintainer: lemmyg@gmail.com
 Section: sound
 Architecture: amd64
 Description: Pipewire filterchain config for Macbook Pro 16 2019
 Homepage: https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161
-Depends: pipewire, pipewire-pulse, wireplumber, lsp-plugins, calf-plugins, swh-plugins
+Depends: pipewire, pipewire-pulse, wireplumber, lsp-plugins, calf-plugins, swh-plugins, apple-t2-audio-config
