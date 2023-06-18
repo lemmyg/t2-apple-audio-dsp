@@ -10,6 +10,7 @@ package=$(grep "Package:" "$control" | cut -d ' ' -f 2)
 cp $control temp/DEBIAN/control
 mkdir -p temp/etc/pipewire/pipewire.conf.d
 cp config/10-t2_mic.conf temp/etc/pipewire/pipewire.conf.d
+cp config/10-t2_headset_mic.conf temp/etc/pipewire/pipewire.conf.d
 #generate debian package
 output="${package}_${version}_amd64.deb"
 echo "package ${output}"
