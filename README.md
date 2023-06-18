@@ -13,8 +13,10 @@ To install the configuration, first install the following dependencies:
 ```sh
 sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
 sudo apt update
+sudo apt upgrade
 sudo apt install pipewire wireplumber pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
 sudo apt install swh-plugins
+systemctl --user restart pipewire pipewire-pulse wireplumber
 ```
 
 Next, clone the git branch and install the configuration by executing the following commands:
@@ -26,7 +28,8 @@ bash install.sh
 ```
 Reboot your device and open the audio settings. You should see "MacBook Pro T2 DSP Mic" as your new normalized source. Please note that the original source, "Apple Audio Device Builtin Microphone," should be set to 100%.
 
-Optional librnnoise_ladspa. For Ubuntu you need to compile it by your own. 
+Optional librnnoise_ladspa.
+For Ubuntu you need to compile it by your own.
 
 ```sh
 #compile and install librnnoise_ladspa plugin
@@ -36,7 +39,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_VST_PLUGIN=OFF -DBUILD_VST3_PL
 make -C build
 sudo make -C build install
 ```
-Once installed you need to replace the following blocks in `/etc/pipewire/pipewire.conf.d/10-t2_mic.conf`
+Once installed, you need to replace the following blocks in `/etc/pipewire/pipewire.conf.d/10-t2_mic.conf`
 Add this block in nodes:
 
 ```yaml
@@ -61,6 +64,11 @@ Replace links with:
                     { output = "rnnoise:Output (L)" input = "compressor:Left input" }
                     { output = "compressor:Left output" input = "limiter:Input 1" }
                 ]
+```
+Now restart pipewire with:
+
+```sh
+systemctl --user restart pipewire pipewire-pulse wireplumber
 ```
 
 ## Uninstall
