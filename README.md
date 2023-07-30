@@ -40,6 +40,14 @@ Copy `pipewire_sink_conf.nix` to `/etc/nixos/` and import it in `configuration.n
 
 Add `ladspaPlugins`, `calf` and `lsp-plugins` to `environment.systemPackages` in `configuration.nix`.'
 
+To make the lv2 plugins available for pipewire we also need to add this ENV:
+
+```
+systemd.user.services.pipewire.environment = {
+    LV2_PATH = "${config.system.path}/lib/lv2";
+};
+```
+
 Rebuid:
 ```
 sudo nixos-rebuild switch   
