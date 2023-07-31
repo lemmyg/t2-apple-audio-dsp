@@ -16,6 +16,8 @@ Once the audio is working, you can install the FIRs config in your system.
 Note that this configuration has been tested on Ubuntu 22.04 and 22.10. 
 For Ubuntu user, 22.10 is recommended as Pipewire is properly integrated.
 
+### 1a - Ubuntu
+
 Install the following dependecies:
 
 ```sh
@@ -32,20 +34,51 @@ cd t2-apple-audio-dsp
 bash install.sh
 ```
 
+### 1b - NixOS
+
+Copy `pipewire_sink_conf.nix` to `/etc/nixos/` and import it in `configuration.nix`.
+
+Add `ladspaPlugins`, `calf` and `lsp-plugins` to `environment.systemPackages` in `configuration.nix`.'
+
+To make the LADSPA + LV2 plugins available for PipeWire we also need to add these ENVs:
+
+```
+systemd.user.services.pipewire.environment = {
+    LADSPA_PATH = "${pkgs.ladspaPlugins}/lib/ladspa";
+    LV2_PATH = "${config.system.path}/lib/lv2";
+};
+```
+
+Rebuid:
+```
+sudo nixos-rebuild switch   
+```
+
+### 2
+
 To restart pipewire:
 
 ```sh
 systemctl --user restart pipewire pipewire-pulse wireplumber
 ```
+
+### 3
+
 Reboot and open the audio settings.
 "Apple Audio Driver Speakers" should be at 100% and "MacBook Pro T2 DSP Speakers" selected as main volumen control. Usually at 75% max.
 Do not select "Apple Audio Driver Speakers" directly as the audio will be send directly to the speakers without any adjustment.
 
 ## Uninstall
+
+### Ubuntu
+
 ```sh
 bash uninstall.sh
 ```
 
+### NixOS
+
+Reverse installation steps and rebuild.
 
 ### Disclaimer
 This project has been create to share the settings with [T2 kernel team](https://wiki.t2linux.org/). Note that the project is still under working in progress and may not be safe for general usage. Misconfigured settings in userspace could damage speakers permanently.
