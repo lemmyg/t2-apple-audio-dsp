@@ -1,4 +1,4 @@
-### MacBook Pro 16 2019 buildin mic and speakers pipewire Filterchain configs
+### T2 Macs buildin mic and Macbook pro 16 2019 speakers pipewire Filterchain configs
 
 This project is part of [T2 kernel team](https://wiki.t2linux.org/).
 
@@ -8,7 +8,7 @@ Please follow the instruction for each of the config.
 
 [mic dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/mic)
 
-[speakers dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161)
+[16.x speakers dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161)
 
 ## References
 
