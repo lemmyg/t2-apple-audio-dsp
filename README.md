@@ -8,6 +8,8 @@ Before proceeding with the installation, please follow the [t2-audio](https://wi
 
 Please note that this configuration has only been tested on version 22.10 and above. If you are an Ubuntu user, we recommend using version 22.10 as Pipewire is properly integrated with this version.
 
+### 1a - Ubuntu
+
 To install the configuration, first install the following dependencies:
 
 ```sh
@@ -65,6 +67,28 @@ Replace links with:
                     { output = "compressor:Left output" input = "limiter:Input 1" }
                 ]
 ```
+
+### 1b - NixOS
+
+Copy `pipewire_sink_conf.nix` to `/etc/nixos/` and import it in `configuration.nix`.
+
+Add `ladspaPlugins` and `lsp-plugins` to `environment.systemPackages` in `configuration.nix`.'
+
+To make the LADSPA plugins available for PipeWire we also need to add this ENV:
+
+```
+systemd.user.services.pipewire.environment = {
+    LADSPA_PATH = "${pkgs.ladspaPlugins}/lib/ladspa";
+};
+```
+
+Rebuid:
+```
+sudo nixos-rebuild switch   
+```
+
+### 2
+
 Now restart pipewire with:
 
 ```sh
