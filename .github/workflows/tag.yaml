@@ -1,0 +1,16 @@
+name: Generate new tag automatically
+
+on:
+  - push
+jobs:
+  auto_create_tag:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: 'Checkout Jammy Repo'
+        uses: actions/checkout@v3
+      - name: Get version
+        run: |
+         VERSION=$(grep ^KERNEL_VERSION build.sh | head -n1| cut -d = -f2)
+         REL=$(grep "PKGREL=\d*" build.sh | cut -d = -f2)
+         echo "ver=${VERSION}" >> $GITHUB_ENV
+         echo "release=${REL}" >> $GITHUB_ENV
