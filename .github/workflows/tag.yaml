@@ -12,4 +12,5 @@ jobs:
         run: |
           control=debian/control
           VERSION=$(grep "Version:" "$control" | cut -d ' ' -f 2)
+          echo ${VERSION}
           echo "ver=${VERSION}" >> $GITHUB_ENV
