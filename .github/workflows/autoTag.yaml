@@ -32,5 +32,5 @@ jobs:
           TAG_NAME=${{ env.ver }}
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git tag -a $TAG_NAME -m "test"
+          git tag -a $TAG_NAME -m "Creating new tag ${{ env.ver }}"
           git push origin $TAG_NAME
