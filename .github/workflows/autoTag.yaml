@@ -18,7 +18,7 @@ jobs:
         id: tag_exist
         run: |
           TAG_NAME=${{ env.ver }}  # Replace with the tag name you want to check
-          if git rev-parse --quiet --verify "refs/tags/$TAG_NAME" > /dev/null; then
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG_NAME" > /dev/null; then
             echo "Tag '$TAG_NAME' already exist"
              echo "tagExist=1" >> $GITHUB_OUTPUT
           else
