@@ -20,7 +20,7 @@ jobs:
           TAG_NAME=${{ env.ver }}  # Replace with the tag name you want to check
           if git ls-remote --exit-code --tags origin "refs/tags/$TAG_NAME" > /dev/null; then
             echo "Tag '$TAG_NAME' already exist"
-             echo "tagExist=1" >> $GITHUB_OUTPUT
+             echo "result=1" >> $GITHUB_OUTPUT
           else
             echo "Tag '$TAG_NAME' does not exist"
             echo "result=0" >> $GITHUB_OUTPUT
