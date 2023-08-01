@@ -9,11 +9,13 @@ jobs:
       - name: 'Checkout Jammy Repo'
         uses: actions/checkout@v3
       - name: Get version
+        id: generate_version
         run: |
           control=debian/control
           VERSION=$(grep "Version:" "$control" | cut -d ' ' -f 2)
           echo "ver=mic-v${VERSION}" >> $GITHUB_ENV
       - name: Create Tag
+        id: create_tag
         uses: actions/github-script@v6
         with:
           script: |
