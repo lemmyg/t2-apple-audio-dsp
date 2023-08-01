@@ -28,7 +28,6 @@ jobs:
       - name: Create Tag
         id: create_tag
         if: steps.tag_exist.outputs.result == 0
-        uses: actions/github-script@v6
         run: |
           TAG_NAME=${{ env.ver }}
           git tag -a $TAG_NAME
