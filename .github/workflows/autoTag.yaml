@@ -29,11 +29,7 @@ jobs:
         id: create_tag
         if: steps.tag_exist.outputs.result == 0
         uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `refs/tags/${{ env.ver }}`,
-                sha: context.sha
-            })
+        run: |
+          TAG_NAME=${{ env.ver }}
+          git tag -a $TAG_NAME
+          git push origin $TAG_NAME
