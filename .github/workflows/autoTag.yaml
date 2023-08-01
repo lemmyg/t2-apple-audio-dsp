@@ -14,8 +14,20 @@ jobs:
           control=debian/control
           VERSION=$(grep "Version:" "$control" | cut -d ' ' -f 2)
           echo "ver=mic-v${VERSION}" >> $GITHUB_ENV
+      - name: Check Tag Exists
+        id: tag_exist
+        run: |
+          TAG_NAME=${{ env.ver }}  # Replace with the tag name you want to check
+          if git rev-parse --quiet --verify "refs/tags/$TAG_NAME" > /dev/null; then
+            echo "Tag '$TAG_NAME' already exist"
+             echo "tagExist=1" >> $GITHUB_OUTPUT
+          else
+            echo "Tag '$TAG_NAME' does not exist"
+            echo "result=0" >> $GITHUB_OUTPUT
+          fi
       - name: Create Tag
         id: create_tag
+        if: steps.tag_exist.outputs.result == 0
         uses: actions/github-script@v6
         with:
           script: |
