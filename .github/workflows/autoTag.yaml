@@ -30,5 +30,7 @@ jobs:
         if: steps.tag_exist.outputs.result == 0
         run: |
           TAG_NAME=${{ env.ver }}
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git tag -a $TAG_NAME
           git push origin $TAG_NAME
