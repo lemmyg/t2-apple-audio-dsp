@@ -21,6 +21,6 @@ jobs:
             github.rest.git.createRef({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                ref: `refs/tags/${{ env.isotag }}`,
+                ref: `refs/tags/${{ env.ver }}`,
                 sha: context.sha
             })
