@@ -34,3 +34,9 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git tag -a $TAG_NAME -m "Creating new tag ${{ env.ver }}"
           git push origin $TAG_NAME
+      - name: Push changes to the repo
+        if: steps.tag_exist.outputs.result == 0
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PAT }}
+          branch: LTS
