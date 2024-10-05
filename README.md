@@ -18,6 +18,10 @@ For Ubuntu user, 22.10 is recommended as Pipewire is properly integrated.
 
 ### 1a - Ubuntu
 
+Due missing lv2 support in Ubuntu Pipewire packages, we need to use Debian packages: 
+
+https://bugs.launchpad.net/ubuntu/+source/pipewire/+bug/2054223
+
 Install the following dependecies:
 
 ```sh
