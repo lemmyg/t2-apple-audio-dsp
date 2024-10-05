@@ -10,7 +10,11 @@ Please note that this configuration has only been tested on version 22.10 and ab
 
 ### 1a - Ubuntu
 
+Due missing lv2 support in Ubuntu Pipewire packages, we need to use Debian packages:
+https://bugs.launchpad.net/ubuntu/+source/pipewire/+bug/2054223
+
 To install the configuration, first install the following dependencies:
+
 
 ```sh
 sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
