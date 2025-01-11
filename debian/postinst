@@ -2,14 +2,49 @@
 
 # check if we are being called as part of an install
 if [ "$1" = "configure" ] ; then
-  # suggest the user to restart the session
-  warning=$(cat <<EOF
-We recommend that you log out and log back in (or restart your session) for all changes to take effect.
-If MacBook Pro T2 DSP Speakers output doesn't appear, try restarting the pipewire service:
-systemctl --user restart wireplumber pipewire pipewire-pulse
-EOF
-)
-  echo "$warning"
+  # Detect computer model
+  MODEL=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
+  
+  if [ -z "$MODEL" ]; then
+    echo "Warning: Could not detect computer model. Manual installation may be required."
+    echo "Run: /usr/local/bin/t2-apple-audio-dsp-install"
+    exit 0
+  fi
+  
+  # Convert comma to underscore in model name (e.g., MacBookPro16,1 -> MacBookPro16_1)
+  MODEL_DIR=$(echo "$MODEL" | tr ',' '_')
+  
+  # Check if config exists for this model
+  if [ ! -d "/usr/share/t2-apple-audio-dsp/config/${MODEL_DIR}" ]; then
+    echo "Warning: Configuration not found for model: ${MODEL}"
+    echo "Available models:"
+    ls -d /usr/share/t2-apple-audio-dsp/config/*/ 2>/dev/null | sed 's|.*/||' || echo "  (none found)"
+    echo "You can manually install using: /usr/local/bin/t2-apple-audio-dsp-install"
+    exit 0
+  fi
+  
+  echo "Detected model: ${MODEL}"
+  echo "Installing DSP config for ${MODEL} (using directory: ${MODEL_DIR})"
+  
+  # Copy config files
+  mkdir -p /etc/pipewire/pipewire.conf.d
+  cp /usr/share/t2-apple-audio-dsp/config/${MODEL_DIR}/*.conf /etc/pipewire/pipewire.conf.d/
+  
+  # FIR files are already installed directly by the package, just ensure permissions
+  if [ -d /usr/share/pipewire/devices/${MODEL_DIR} ]; then
+    chmod o+r /usr/share/pipewire/devices/${MODEL_DIR}/*.wav 2>/dev/null
+  fi
+  
+  # Restart pipewire for all users (if systemd user session exists)
+  if command -v systemctl >/dev/null 2>&1; then
+    # Try to restart for current user if we can determine it
+    # Note: postinst runs as root, so we can't directly restart user services
+    echo "To apply changes, restart pipewire for your user:"
+    echo "  systemctl --user restart wireplumber pipewire pipewire-pulse"
+    echo "Or log out and log back in."
+  fi
+  
+  echo "Installation complete for ${MODEL}"
 fi
 
 # dpkg maintainer script policy is to always exit 0

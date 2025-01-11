@@ -1,0 +1,26 @@
+#!/bin/sh
+
+# Clean up on package removal
+if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
+  # Remove config files (old and new format)
+  # Remove old format configs (e.g., 10-t2_161_*.conf)
+  rm -f /etc/pipewire/pipewire.conf.d/10-t2_161_*.conf
+  # Remove new format configs (e.g., 51-t2-dsp.conf)
+  rm -f /etc/pipewire/pipewire.conf.d/*-t2-dsp.conf
+  
+  # Remove FIR files (model-specific directories)
+  # Remove old format FIR directories (e.g., MacBookPro16_1)
+  if [ -d /usr/share/pipewire/devices ]; then
+    rm -rf /usr/share/pipewire/devices/MacBook* 2>/dev/null || true
+    # Remove new format FIR directories (e.g., 16_1, 9_1)
+    for model_dir in /usr/share/pipewire/devices/*_*; do
+      if [ -d "$model_dir" ]; then
+        rm -rf "$model_dir" 2>/dev/null || true
+      fi
+    done
+  fi
+fi
+
+# dpkg maintainer script policy is to always exit 0
+exit 0
+

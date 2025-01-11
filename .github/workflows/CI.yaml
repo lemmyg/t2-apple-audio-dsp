@@ -13,33 +13,28 @@ jobs:
       run:
         shell: bash
         working-directory: ${{ github.workspace }}
-
+    env:
+        VERSION: 0.3.0-1 # Define the version variable here
+        EXECUTE_ACTION: true # Define the execute action variable here
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+      - name: Update Version in debian/control
+        run: |
+            sed -i "s/^Version:.*/Version: $VERSION/" debian/control
       - name: Generate Debian Package
         id: generate_deb
         run: |
-          # remove previus FIRs
           mkdir -p /tmp/output
           bash debian/build.sh
           echo "file=$(ls t2-apple-audio-dsp-*)" >> $GITHUB_OUTPUT
-
-#      - name: Generate Release Source
-#        run: |
-#           remove previus FIRs
-#          rm -r firs/previous
-#           Create a zip files containing all the files in the 'mic' and 'speakers' folders
-#          mkdir -p /tmp/output
-#          zip -r /tmp/output/release-source-speakers.zip README.md install.sh uninstall.sh config firs
       
       - name: Extract tag version
         id: extract_tag
         run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
       - name: "Release"
         uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/') && env.EXECUTE_ACTION == 'true'
         with:
           files: |
             ${{ steps.generate_deb.outputs.file }}

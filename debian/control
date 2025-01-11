@@ -1,8 +1,15 @@
-Package: t2-apple-audio-dsp-speakers161
-Version: 0.2.0-1
-Maintainer: lemmyg@gmail.com
+Package: t2-apple-audio-dsp
+Version: 0.3.0-1
+Maintainer: lemmyg <lemmygl@protonmail.com>
 Section: sound
+Priority: optional
 Architecture: amd64
-Description: Pipewire filterchain config for Macbook Pro 16 2019
-Homepage: https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161
-Depends: pipewire, pipewire-pulse, wireplumber, lsp-plugins, calf-plugins, swh-plugins, apple-t2-audio-config
+License: MIT
+Description: Pipewire filterchain configs for T2 Apple MacBooks
+ Multi-model support for T2 Apple MacBooks including MacBook Pro 16,1
+ and other supported models. Automatically detects your Mac model and
+ installs the appropriate DSP configuration.
+ .
+ This package requires Ubuntu 25.10 or later.
+Homepage: https://github.com/lemmyg/t2-apple-audio-dsp
+Depends: pipewire (>= 1.4.7), pipewire-pulse, wireplumber, libpipewire-0.3-modules-extra (>= 1.4.7), bankstown-lv2, triforce-lv2, lsp-plugins-lv2, swh-lv2, apple-t2-audio-config
