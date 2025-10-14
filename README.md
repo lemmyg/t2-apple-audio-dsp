@@ -4,7 +4,7 @@ Thanks to chadmed, Asahi Linux, and Manawyrm.
 
 The project has been adjusted to test Asahi Linux audio workflow on a MacBook Air 2020 with T2 audio driver.
 
-The files made by Asahi Linux for the M1 Macbook Air J313 were used.
+The Impulse files for the M1 Macbook Air J313 made by Asahi Linux were used because I believe that it has the same speakers as the 2020 Intel MacBook Air
 
 For more information about Asahi audio, please visit the original project at [asahi-audio](https://github.com/chadmed/asahi-audio)
 
