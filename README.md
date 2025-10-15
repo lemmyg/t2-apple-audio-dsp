@@ -13,7 +13,7 @@ For more information about Asahi audio, please visit the original project at [as
 First follow [t2-audio](https://wiki.t2linux.org/guides/audio-config) instructions and install pipewire.
 
 Once the audio is working, you can install the FIRs config in your system.
-Note that this configuration has only been tested on Ubuntu 25.04
+Note that this configuration has only been tested on Ubuntu 25.04 and Ubuntu 25.10
 
 ### 1a - Ubuntu
 
