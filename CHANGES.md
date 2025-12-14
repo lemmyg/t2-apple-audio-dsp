@@ -3,7 +3,9 @@ CHANGES
 
 * 0.3.0-1:
 
-  ** New FIR adjusted to 75dBs.
+  ** Project refactoring.
+  
+  ** New FIR adjusted to 75dBs for 16_1.
   
   ** Replaced multiband compression with simple stereo compressor.
   
