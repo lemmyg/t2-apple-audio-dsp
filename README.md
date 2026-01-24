@@ -1,35 +1,51 @@
-## Testing Asahi Linux userspace audio configuration on  MacBook Pro 16 2019 T2.
+## T2 Linux Audio DSP configuration.
 
-Thanks to chadmed and Asahi Linux.
+Based on Asahi Linux userspace audio configuration. on  MacBook Pro 16 2019 T2.
 
-The project has been adjusted to test Asahi Linux audio workflow on a MacBook Pro 16 2019 with T2 audio driver.
+Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
-New FIRs were created measuring the MacBook Pro 16 with UMIK-1 mic and manually created FIRs of EQ filters using REW.
+## Supported models:
+    
+    # MacBook Pro 16 2019: Id: 16_1
 
-For more information about Asahi audio, please visit the original project at [asahi-audio](https://github.com/chadmed/asahi-audio)
+    The project has been adjusted to test Asahi Linux audio workflow on a MacBook Pro 16 2019 with T2 audio driver.
+
+    New FIRs were created measuring the MacBook Pro 16 with UMIK-1 mic and manually created FIRs of EQ filters using REW.
+
+    For more information about Asahi audio, please visit the original project at [asahi-audio](https://github.com/chadmed/asahi-audio)
+
+    Using chadmed bankstown-lv2 and triforce-lv2 plugins. 
+
+    
+    # MacBook Air 2020: Id: 9_1
+
+    The project has been adjusted to test Asahi Linux audio workflow on a MacBook Air 2020 with T2 audio driver.
+
+    The Impulse files for the M1 Macbook Air J313 made by Asahi Linux were used because I believe that it has the same speakers as the 2020 Intel MacBook Air
+
+    For more information about Asahi audio, please visit the original project at asahi-audio
+
+
 
 ## Installation instructions
 
 First follow [t2-audio](https://wiki.t2linux.org/guides/audio-config) instructions and install pipewire.
 
 Once the audio is working, you can install the FIRs config in your system.
-Note that this configuration has been tested on Ubuntu 22.04 and 22.10. 
-For Ubuntu user, 22.10 is recommended as Pipewire is properly integrated.
+Note that this configuration has been tested on Ubuntu 25.10. 
+For previous versions please check speakers_161 branch.
 
 ### 1a - Ubuntu
 
-Due missing lv2 support in Ubuntu Pipewire packages, we need to use Debian packages: 
+Download and Install the Ubuntu package:
 
-https://bugs.launchpad.net/ubuntu/+source/pipewire/+bug/2054223
+https://github.com/lemmyg/t2-apple-audio-dsp/releases/download/master-v0.5.0-1/t2-apple-audio-dsp_0.5.0-1_amd64.deb
 
-Install the following dependecies:
+Manual installation:
 
 ```sh
-sudo add-apt-repository ppa:pipewire-debian/pipewire-upstream
-sudo apt update
-sudo apt upgrade
 sudo apt install pipewire pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
-sudo apt install wireplumber lsp-plugins calf-plugins swh-plugins
+sudo apt install wireplumber bankstown-lv2 triforce-lv2 lsp-plugins-lv2 swh-lv2
 ```
 Clone the git branch and install the FIRs config:
 
