@@ -44,8 +44,8 @@ https://github.com/lemmyg/t2-apple-audio-dsp/releases/download/master-v0.5.0-1/t
 Manual installation:
 
 ```sh
-sudo apt install pipewire pipewire-audio-client-libraries libpipewire-0.3-modules libspa-0.2-{bluetooth,jack,modules} pipewire{,-{audio-client-libraries,pulse,bin,tests}}
-sudo apt install wireplumber bankstown-lv2 triforce-lv2 lsp-plugins-lv2 swh-lv2
+sudo apt install pipewire pipewire-pulse wireplumber libpipewire-0.3-modules-extra
+sudo apt install bankstown-lv2 triforce-lv2 lsp-plugins-lv2 swh-lv2
 ```
 Clone the git branch and install the FIRs config:
 
@@ -55,7 +55,7 @@ cd t2-apple-audio-dsp
 bash install.sh
 ```
 
-### 1b - NixOS
+### 1b - NixOS Deprecated. Please follow speakers_161
 
 Copy `pipewire_sink_conf.nix` to `/etc/nixos/` and import it in `configuration.nix`.
 
