@@ -12,4 +12,4 @@ Description: Pipewire filterchain configs for T2 Apple MacBooks
  .
  This package requires Ubuntu 25.10 or later.
 Homepage: https://github.com/lemmyg/t2-apple-audio-dsp
-Depends: pipewire (>= 1.4.7), pipewire-pulse, wireplumber, libpipewire-0.3-modules-extra (>= 1.4.7), bankstown-lv2, triforce-lv2, lsp-plugins-lv2, swh-lv2, apple-t2-audio-config
+Depends: pipewire (>= 1.4.7), pipewire-pulse, wireplumber, libspa-0.2-modules-extra (>= 1.4.7), libpipewire-0.3-modules-extra (>= 1.4.7), bankstown-lv2, triforce-lv2, lsp-plugins-lv2, swh-lv2, apple-t2-audio-config
