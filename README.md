@@ -44,7 +44,7 @@ https://github.com/lemmyg/t2-apple-audio-dsp/releases/download/master-v0.5.0-1/t
 Manual installation:
 
 ```sh
-sudo apt install pipewire pipewire-pulse wireplumber libpipewire-0.3-modules-extra
+sudo apt install pipewire pipewire-pulse wireplumber libpipewire-0.3-modules-extra libspa-0.2-modules-extra
 sudo apt install bankstown-lv2 triforce-lv2 lsp-plugins-lv2 swh-lv2
 ```
 Clone the git branch and install the FIRs config:
