@@ -28,7 +28,8 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Using version: $VERSION (from tag $TAG)"
       - name: Update Version in debian/control
-        run: sed -i "s/^Version:.*/Version: ${{ steps.version.outputs.version }}/" debian/control
+        run: |
+          sed -i "s/^Version:.*/Version: ${{ steps.version.outputs.version }}/" debian/control
       - name: Generate Debian Package
         id: generate_deb
         run: |
