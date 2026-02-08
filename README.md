@@ -1,14 +1,28 @@
+<<<<<<< HEAD
 ## T2 Linux Audio DSP configuration.
 
 Based on Asahi Linux userspace audio configuration. on  MacBook Pro 16 2019 T2.
+=======
+### T2 Macs buildin mic and Macbook pro 16 2019 speakers pipewire Filterchain configs
+
+This project is part of [T2 kernel team](https://wiki.t2linux.org/).
+
+The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and 6 channels speakers in Linux. Note that speakers config is specific for Macbook Pro 16 2019 models only.
+>>>>>>> master
 
 Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
+<<<<<<< HEAD
 ## Supported models:
     
     # MacBook Pro 16 2019: Id: 16_1
 
     The project has been adjusted to test Asahi Linux audio workflow on a MacBook Pro 16 2019 with T2 audio driver.
+=======
+[mic dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/mic)
+
+[16.x speakers dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161)
+>>>>>>> master
 
     New FIRs were created measuring the MacBook Pro 16 with UMIK-1 mic and manually created FIRs of EQ filters using REW.
 
