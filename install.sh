@@ -17,24 +17,24 @@ else
     exit 1
 fi
 
-# Function to map model names to directory names
-# Add more models here as they become available
+# Model dict: "model_id dir_name ..." — add more models here (POSIX sh compatible)
+MODEL_DICT="MacBookPro16,1 16_1 MacBookAir9,1 9_1"
+
 get_model_dir() {
-    case "$1" in
-        "MacBookPro16,1")
-            echo "16_1"
-            ;;
-        "MacBookAir9,1")
-            echo "9_1"
-            ;;
-        *)
-            return 1
-            ;;
-    esac
+    local model="$1"
+    set -- $MODEL_DICT
+    while [ $# -ge 2 ]; do
+        if [ "$1" = "$model" ]; then
+            echo "$2"
+            return 0
+        fi
+        shift 2
+    done
+    return 1
 }
 
-# List of supported models (for error messages)
-SUPPORTED_MODELS="MacBookPro16,1 MacBookAir9,1"
+# List of supported models (for error messages), derived from dict keys
+SUPPORTED_MODELS=$(set -- $MODEL_DICT; while [ $# -ge 2 ]; do echo "$1"; shift 2; done)
 
 # Detect computer model
 MODEL=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
