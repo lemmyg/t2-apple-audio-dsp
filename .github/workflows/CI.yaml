@@ -23,7 +23,7 @@ jobs:
         run: |
           TAG="${GITHUB_REF#refs/tags/}"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
-          # master-v1.0.0 -> 1.0.0-1 (upstream + deb revision)
+          # master-v3.0.0 -> 3.0.0-1 (upstream + deb revision)
           VERSION=$(echo "$TAG" | sed 's/^master-v//')-1
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Using version: $VERSION (from tag $TAG)"
