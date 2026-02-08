@@ -1,4 +1,4 @@
-t2-apple-audio-dsp (0.5.0-1) oracular; urgency=medium
+t2-apple-audio-dsp (0.1.0-1) oracular; urgency=medium
 
   * Multi-model support for T2 Apple MacBooks
   * Automatic model detection during installation

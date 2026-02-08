@@ -14,24 +14,27 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
     env:
-        VERSION: 0.3.0-1 # Define the version variable here
-        EXECUTE_ACTION: true # Define the execute action variable here
+        EXECUTE_ACTION: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Update Version in debian/control
+      - name: Set version from tag
+        id: version
         run: |
-            sed -i "s/^Version:.*/Version: $VERSION/" debian/control
+          TAG="${GITHUB_REF#refs/tags/}"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+          # speakers-v0.5.0 -> 0.5.0-1 (upstream + deb revision)
+          VERSION=$(echo "$TAG" | sed 's/^speakers-v//')-1
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Using version: $VERSION (from tag $TAG)"
+      - name: Update Version in debian/control
+        run: sed -i "s/^Version:.*/Version: ${{ steps.version.outputs.version }}/" debian/control
       - name: Generate Debian Package
         id: generate_deb
         run: |
           mkdir -p /tmp/output
           bash debian/build.sh
-          echo "file=$(ls t2-apple-audio-dsp-*)" >> $GITHUB_OUTPUT
-      
-      - name: Extract tag version
-        id: extract_tag
-        run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          echo "file=$(ls t2-apple-audio-dsp_*.deb)" >> $GITHUB_OUTPUT
       - name: "Release"
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/') && env.EXECUTE_ACTION == 'true'
@@ -39,7 +42,7 @@ jobs:
           files: |
             ${{ steps.generate_deb.outputs.file }}
           tag_name: ${{ github.ref }}
-          name: ${{ steps.extract_tag.outputs.tag }}
+          name: ${{ steps.version.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
