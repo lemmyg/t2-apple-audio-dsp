@@ -1,32 +1,21 @@
-<<<<<<< HEAD
-## T2 Linux Audio DSP configuration.
 
-Based on Asahi Linux userspace audio configuration. on  MacBook Pro 16 2019 T2.
-=======
-### T2 Macs buildin mic and Macbook pro 16 2019 speakers pipewire Filterchain configs
+### T2 Linux Audio DSP configuration.
 
+Based on Asahi Linux userspace audio configuration.
 This project is part of [T2 kernel team](https://wiki.t2linux.org/).
 
-The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and 6 channels speakers in Linux. Note that speakers config is specific for Macbook Pro 16 2019 models only.
->>>>>>> master
-
+The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and speakers in Linux. 
 Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
-<<<<<<< HEAD
 ## Supported models:
     
     # MacBook Pro 16 2019: Id: 16_1
 
-    The project has been adjusted to test Asahi Linux audio workflow on a MacBook Pro 16 2019 with T2 audio driver.
-=======
-[mic dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/mic)
+    The project has been adjusted to test Asahi Linux audio workflow on a MacBook Por 16 2019 T2 audio driver.
 
-[16.x speakers dsp config](https://github.com/lemmyg/t2-apple-audio-dsp/tree/speakers_161)
->>>>>>> master
+    The Impulse files were created measuring speakers with REW. For Apple mic, using triforce-lv2 plugins.
 
-    New FIRs were created measuring the MacBook Pro 16 with UMIK-1 mic and manually created FIRs of EQ filters using REW.
-
-    For more information about Asahi audio, please visit the original project at [asahi-audio](https://github.com/chadmed/asahi-audio)
+    For more information about Asahi audio, please visit the original project at asahi-audio
 
     Using chadmed bankstown-lv2 and triforce-lv2 plugins. 
 
