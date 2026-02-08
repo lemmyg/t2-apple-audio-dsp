@@ -3,7 +3,7 @@ name: Auto Release Workflow
 on:
   push:
     tags:
-      - 'speakers-v*' # Trigger on any tag starting with 'v'
+      - 'master-v*'
 
 jobs:
   auto_release_speakers:
@@ -23,8 +23,8 @@ jobs:
         run: |
           TAG="${GITHUB_REF#refs/tags/}"
           echo "tag=$TAG" >> $GITHUB_OUTPUT
-          # speakers-v0.5.0 -> 0.5.0-1 (upstream + deb revision)
-          VERSION=$(echo "$TAG" | sed 's/^speakers-v//')-1
+          # master-v1.0.0 -> 1.0.0-1 (upstream + deb revision)
+          VERSION=$(echo "$TAG" | sed 's/^master-v//')-1
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Using version: $VERSION (from tag $TAG)"
       - name: Update Version in debian/control
