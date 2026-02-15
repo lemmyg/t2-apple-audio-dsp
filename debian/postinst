@@ -12,7 +12,7 @@ if [ "$1" = "configure" ] ; then
   fi
   
   # Extract model identifier and convert comma to underscore (e.g., MacBookPro16,1 -> 16_1)
-  MODEL_DIR=$(echo "$MODEL" | sed 's/.*\([0-9][0-9]*,[0-9][0-9]*\).*/\1/' | tr ',' '_')
+  MODEL_DIR=$(echo "$MODEL" | sed 's/[^0-9]*\([0-9][0-9]*,[0-9][0-9]*\).*/\1/' | tr ',' '_')
   
   # Check if config exists for this model
   if [ ! -d "/usr/share/t2-apple-audio-dsp/config/${MODEL_DIR}" ]; then
