@@ -1,6 +1,10 @@
 CHANGES
 -------
 
+* 0.3.1-1:
+
+  ** Fixed postinst model selection
+
 * 0.3.0-1:
 
   ** Project refactoring.
