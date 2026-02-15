@@ -40,9 +40,9 @@ For previous versions please check speakers_161 branch.
 
 ### 1a - Ubuntu
 
-Download and Install the Ubuntu package:
+Download and Install the Ubuntu package from master:
 
-https://github.com/lemmyg/t2-apple-audio-dsp/releases/download/master-v0.5.0-1/t2-apple-audio-dsp_0.5.0-1_amd64.deb
+https://github.com/lemmyg/t2-apple-audio-dsp/releases
 
 Manual installation:
 
