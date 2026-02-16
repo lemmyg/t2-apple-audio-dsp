@@ -1,51 +1,124 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# (C) 2025 Linux T2 Kernel Team
+#
+# Same logic as install.sh; runs as root at package configure. See INSTALL_PATHS.md.
 
-# check if we are being called as part of an install
-if [ "$1" = "configure" ] ; then
-  # Detect computer model
-  MODEL=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
-  
-  if [ -z "$MODEL" ]; then
-    echo "Warning: Could not detect computer model. Manual installation may be required."
-    echo "Run: /usr/local/bin/t2-apple-audio-dsp-install"
+CONFIG_DIR="/usr/share/t2-apple-audio-dsp/config"
+AUDIO_DIR="/usr/share/t2-linux-audio"
+
+# Model dict: "model_id dir_name ..." — add more models here (POSIX sh compatible)
+MODEL_DICT="MacBookPro16,1 16_1 MacBookAir9,1 9_1"
+
+get_model_dir() {
+    model="$1"
+    set -- $MODEL_DICT
+    while [ $# -ge 2 ]; do
+        if [ "$1" = "$model" ]; then
+            echo "$2"
+            return 0
+        fi
+        shift 2
+    done
+    return 1
+}
+
+# List of supported models (for error messages), derived from dict keys
+SUPPORTED_MODELS=$(set -- $MODEL_DICT; while [ $# -ge 2 ]; do echo "$1"; shift 2; done)
+
+if [ "$1" != "configure" ]; then
     exit 0
-  fi
-  
-  # Extract model identifier and convert comma to underscore (e.g., MacBookPro16,1 -> 16_1)
-  MODEL_DIR=$(echo "$MODEL" | sed 's/[^0-9]*\([0-9][0-9]*,[0-9][0-9]*\).*/\1/' | tr ',' '_')
-  
-  # Check if config exists for this model
-  if [ ! -d "/usr/share/t2-apple-audio-dsp/config/${MODEL_DIR}" ]; then
-    echo "Warning: Configuration not found for model: ${MODEL}"
-    echo "Available models:"
-    ls -d /usr/share/t2-apple-audio-dsp/config/*/ 2>/dev/null | sed 's|.*/||' || echo "  (none found)"
-    echo "You can manually install using: /usr/local/bin/t2-apple-audio-dsp-install"
-    exit 0
-  fi
-  
-  echo "Detected model: ${MODEL}"
-  echo "Installing DSP config for ${MODEL} (using directory: ${MODEL_DIR})"
-  
-  # Copy config files
-  mkdir -p /etc/pipewire/pipewire.conf.d
-  cp /usr/share/t2-apple-audio-dsp/config/${MODEL_DIR}/*.conf /etc/pipewire/pipewire.conf.d/
-  
-  # FIR files are already installed directly by the package, just ensure permissions
-  if [ -d /usr/share/pipewire/devices/${MODEL_DIR} ]; then
-    chmod o+r /usr/share/pipewire/devices/${MODEL_DIR}/*.wav 2>/dev/null
-  fi
-  
-  # Restart pipewire for all users (if systemd user session exists)
-  if command -v systemctl >/dev/null 2>&1; then
-    # Try to restart for current user if we can determine it
-    # Note: postinst runs as root, so we can't directly restart user services
-    echo "To apply changes, restart pipewire for your user:"
-    echo "  systemctl --user restart wireplumber pipewire pipewire-pulse"
-    echo "Or log out and log back in."
-  fi
-  
-  echo "Installation complete for ${MODEL}"
 fi
 
-# dpkg maintainer script policy is to always exit 0
+if [ ! -d "$CONFIG_DIR" ] || [ ! -d "$AUDIO_DIR" ]; then
+    echo "t2-apple-audio-dsp: package data not found, skipping."
+    exit 0
+fi
+
+# Detect computer model
+MODEL=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
+
+if [ -z "$MODEL" ]; then
+    echo "t2-apple-audio-dsp: Could not detect computer model"
+    exit 0
+fi
+
+# Get directory name from mapping
+MODEL_DIR=$(get_model_dir "$MODEL")
+if [ -z "$MODEL_DIR" ]; then
+    echo "t2-apple-audio-dsp: Model '${MODEL}' is not supported"
+    echo "Supported models:"
+    for model_name in $SUPPORTED_MODELS; do
+        echo "  - ${model_name}"
+    done
+    exit 0
+fi
+
+if [ ! -d "${CONFIG_DIR}/${MODEL_DIR}" ]; then
+    echo "t2-apple-audio-dsp: Configuration not found for model: ${MODEL}"
+    echo "Available models:"
+    ls -d ${CONFIG_DIR}/*/ 2>/dev/null | sed 's|.*/||' || echo "  (none found)"
+    exit 0
+fi
+
+if [ ! -d "${AUDIO_DIR}/${MODEL_DIR}" ]; then
+    echo "t2-apple-audio-dsp: Audio data not found for model: ${MODEL_DIR}"
+    exit 0
+fi
+
+echo "Detected model: ${MODEL} (using directory: ${MODEL_DIR})"
+echo "Installing DSP config for ${MODEL}"
+
+# Install WirePlumber DSP config (uses node.software-dsp module like Asahi Linux)
+if ls ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf 1> /dev/null 2>&1; then
+    echo "Copying WirePlumber DSP config to /etc/wireplumber/wireplumber.conf.d"
+    mkdir -p /etc/wireplumber/wireplumber.conf.d
+    cp ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf /etc/wireplumber/wireplumber.conf.d/
+fi
+
+# Install FIRs, DSP graphs, and Lua scripts to /usr/share/t2-linux-audio/${MODEL_DIR}
+# (Already installed there by the package; no copy step.)
+echo "FIRs, DSP graphs, and Lua scripts are in /usr/share/t2-linux-audio/${MODEL_DIR} (from package)"
+
+# Create symlink for WirePlumber to find Lua scripts
+if ls /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua 1> /dev/null 2>&1; then
+    echo "Creating symlinks for WirePlumber Lua scripts"
+    mkdir -p /usr/share/wireplumber/scripts/device
+    for lua_file in /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua; do
+        lua_basename=$(basename "$lua_file")
+        ln -sf "$lua_file" /usr/share/wireplumber/scripts/device/"$lua_basename"
+    done
+fi
+
+# Clean up old PipeWire configurations (now using WirePlumber for both speakers and mic)
+OLD_MODEL_ID=$(echo "$MODEL_DIR" | tr -d '_')
+if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_speakers.conf" ]; then
+    echo "Removing old PipeWire speaker config (now using WirePlumber)"
+    rm -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_speakers.conf"
+fi
+
+if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf" ]; then
+    echo "Removing old PipeWire mic config (now using WirePlumber)"
+    rm -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf"
+fi
+
+echo "To apply changes, restart pipewire for your user:"
+echo "  systemctl --user restart wireplumber pipewire pipewire-pulse"
+echo "Or log out and log back in."
+echo ""
+echo "Installation complete!"
+echo "The raw Apple Audio Device should now be hidden."
+echo "Only the DSP-processed outputs should be visible."
+
+# Check if mic config exists for this model
+if ls ${AUDIO_DIR}/${MODEL_DIR}/mic.json 1> /dev/null 2>&1; then
+    echo "  - DSP Speakers"
+    echo "  - DSP Mic"
+else
+    echo "  - DSP Speakers"
+fi
+
+echo ""
+echo "Note: You may need to log out and log back in for changes to fully take effect."
+
 exit 0

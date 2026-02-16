@@ -1,26 +1,25 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
+# (C) 2025 Linux T2 Kernel Team
+# Same removals as uninstall.sh (see INSTALL_PATHS.md). Runs as root, no sudo.
 
-# Clean up on package removal
-if [ "$1" = "remove" ] || [ "$1" = "purge" ]; then
-  # Remove config files (old and new format)
-  # Remove old format configs (e.g., 10-t2_161_*.conf)
-  rm -f /etc/pipewire/pipewire.conf.d/10-t2_161_*.conf
-  # Remove new format configs (e.g., 51-t2-dsp.conf)
-  rm -f /etc/pipewire/pipewire.conf.d/*-t2-dsp.conf
-  
-  # Remove FIR files (model-specific directories)
-  # Remove old format FIR directories (e.g., MacBookPro16_1)
-  if [ -d /usr/share/pipewire/devices ]; then
-    rm -rf /usr/share/pipewire/devices/MacBook* 2>/dev/null || true
-    # Remove new format FIR directories (e.g., 16_1, 9_1)
-    for model_dir in /usr/share/pipewire/devices/*_*; do
-      if [ -d "$model_dir" ]; then
-        rm -rf "$model_dir" 2>/dev/null || true
-      fi
-    done
-  fi
+if [ "$1" != "remove" ] && [ "$1" != "purge" ]; then
+  exit 0
 fi
 
-# dpkg maintainer script policy is to always exit 0
-exit 0
+echo "Removing WirePlumber DSP config from /etc/wireplumber/wireplumber.conf.d"
+rm -f /etc/wireplumber/wireplumber.conf.d/*-dsp.conf
 
+echo "Removing old PipeWire config if present"
+rm -f /etc/pipewire/pipewire.conf.d/10-t2_161_*.conf
+rm -f /etc/pipewire/pipewire.conf.d/*-t2-dsp.conf
+
+echo "Removing Lua script symlinks from /usr/share/wireplumber/scripts/device"
+rm -f /usr/share/wireplumber/scripts/device/t2-force-unmute.lua
+
+echo "Removing audio data (FIRs, graphs, Lua) from /usr/share/t2-linux-audio"
+rm -rf /usr/share/t2-linux-audio
+
+echo "To apply: systemctl --user restart wireplumber pipewire pipewire-pulse"
+
+exit 0

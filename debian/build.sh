@@ -17,25 +17,18 @@ if [ -f debian/copyright ]; then
     cp debian/copyright temp/DEBIAN/copyright
 fi
 
-# Copy install script to /usr/local/bin
-mkdir -p temp/usr/local/bin
-cp install.sh temp/usr/local/bin/t2-apple-audio-dsp-install
-chmod 755 temp/usr/local/bin/t2-apple-audio-dsp-install
-
 # Copy all model configs to package (for postinst to select based on model)
 mkdir -p temp/usr/share/t2-apple-audio-dsp
 cp -r config temp/usr/share/t2-apple-audio-dsp/
 
-# Install FIR files directly to final location for all models
-# This ensures they're available at boot time, avoiding timing issues
+# Install FIRs, DSP graphs, and Lua scripts to /usr/share/t2-linux-audio (same as install.sh)
 for model_dir in firs/*/; do
     if [ -d "$model_dir" ]; then
         model=$(basename "$model_dir")
-        mkdir -p "temp/usr/share/pipewire/devices/${model}"
-        cp "$model_dir"*.wav "temp/usr/share/pipewire/devices/${model}/" 2>/dev/null
-        # Ensure directory and files are readable by all
-        chmod 755 "temp/usr/share/pipewire/devices/${model}" 2>/dev/null || true
-        chmod 644 "temp/usr/share/pipewire/devices/${model}"/*.wav 2>/dev/null || true
+        mkdir -p "temp/usr/share/t2-linux-audio/${model}"
+        cp "$model_dir"* "temp/usr/share/t2-linux-audio/${model}/" 2>/dev/null
+        chmod 755 "temp/usr/share/t2-linux-audio/${model}" 2>/dev/null || true
+        chmod 644 "temp/usr/share/t2-linux-audio/${model}"/* 2>/dev/null || true
     fi
 done
 

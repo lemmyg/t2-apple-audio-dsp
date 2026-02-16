@@ -1,21 +1,16 @@
 #!/bin/bash
 # SPDX-License-Identifier: MIT
 # (C) 2025 Linux T2 Kernel Team
+#
+# Standalone install: run from the source directory. Installs to the same
+# paths as the deb package; see INSTALL_PATHS.md.
 
-# Determine if running from source or installed package
-if [ -d "config" ] && [ -d "firs" ]; then
-    # Running from source directory
-    CONFIG_DIR="config"
-    FIRS_DIR="firs"
-elif [ -d "/usr/share/t2-apple-audio-dsp/config" ] && [ -d "/usr/share/t2-apple-audio-dsp/firs" ]; then
-    # Running from installed package
-    CONFIG_DIR="/usr/share/t2-apple-audio-dsp/config"
-    FIRS_DIR="/usr/share/t2-apple-audio-dsp/firs"
-else
-    echo "Error: Could not find config or firs directories"
-    echo "Please run this script from the source directory or install the package"
+if [ ! -d "config" ] || [ ! -d "firs" ]; then
+    echo "Error: Run this script from the source directory (must contain config/ and firs/)."
     exit 1
 fi
+CONFIG_DIR="config"
+FIRS_DIR="firs"
 
 # Model dict: "model_id dir_name ..." — add more models here (POSIX sh compatible)
 MODEL_DICT="MacBookPro16,1 16_1 MacBookAir9,1 9_1"
@@ -96,6 +91,7 @@ if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_speakers.conf" ]; then
     echo "Removing old PipeWire speaker config (now using WirePlumber)"
     sudo rm -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_speakers.conf"
 fi
+
 if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf" ]; then
     echo "Removing old PipeWire mic config (now using WirePlumber)"
     sudo rm -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf"
