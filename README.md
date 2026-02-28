@@ -1,3 +1,5 @@
+## Deprecated from 25.10. Please use master branch.
+
 ## Testing Asahi Linux userspace audio configuration on  MacBook Pro 16 2019 T2.
 
 Thanks to chadmed and Asahi Linux.
