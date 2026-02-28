@@ -1,3 +1,4 @@
+### Deprecated please use master from 25.10.
 ### Buildin 3 microphone  DSP config
 
 This project aims to address the low audio signal issue caused by the T2 audio driver in the built in microphone in Linux by providing a Pipewire filterchain configuration that mixes and normalizes 3 mics digital audio signal in real-time. For more information about the T2 kernel team, please visit [T2 kernel team](https://wiki.t2linux.org/)
