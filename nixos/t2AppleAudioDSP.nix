@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: MIT
 # (C) 2022 The Asahi Linux Contributors
 # https://github.com/lemmyg/t2-apple-audio-dsp/
+# Version: master-v1.0.1
 
 { config, lib, pkgs, ... }:
 
@@ -50,11 +51,9 @@
           bankstown-lv2
           swh_lv2
           lsp-plugins 
+          # triforce-lv2 override shouldn't be needed for 26.05 and later
           (triforce-lv2.overrideAttrs {
-            meta.platforms = [ 
-              "x86_64-linux"
-              "aarch64-linux"
-            ];
+            meta.platforms = lib.platforms.linux;
           })
         ];
       };
