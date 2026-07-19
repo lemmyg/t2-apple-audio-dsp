@@ -112,8 +112,8 @@ echo "  systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo "Or log out and log back in."
 echo ""
 echo "Installation complete!"
-echo "The raw Apple Audio Device should now be hidden."
-echo "Only the DSP-processed outputs should be visible."
+echo "The raw Apple Audio Device nodes are hidden; only DSP outputs are visible."
+echo "Use the DSP nodes for normal playback and recording:"
 
 # Check if mic config exists for this model
 if ls ${AUDIO_DIR}/${MODEL_DIR}/mic.json 1> /dev/null 2>&1; then

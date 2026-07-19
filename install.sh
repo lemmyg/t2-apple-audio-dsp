@@ -5,6 +5,10 @@
 # Standalone install: run from the source directory. Installs to the same
 # paths as the deb package; see INSTALL_PATHS.md.
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" && pwd -P)"
+# shellcheck source=restart-user-audio.sh
+. "$SCRIPT_DIR/restart-user-audio.sh"
+
 if [ ! -d "config" ] || [ ! -d "firs" ]; then
     echo "Error: Run this script from the source directory (must contain config/ and firs/)."
     exit 1
@@ -13,7 +17,7 @@ CONFIG_DIR="config"
 FIRS_DIR="firs"
 
 # Model dict: "model_id dir_name ..." — add more models here (POSIX sh compatible)
-MODEL_DICT="MacBookPro16,1 16_1 MacBookPro16,4 16_4 MacBookAir9,1 9_1"
+MODEL_DICT="MacBookPro15,1 15_1 MacBookPro16,1 16_1 MacBookPro16,2 16_2 MacBookPro16,4 16_4 MacBookAir9,1 9_1"
 
 get_model_dir() {
     local model="$1"
@@ -62,23 +66,27 @@ echo "Installing DSP config for ${MODEL}"
 
 # Install WirePlumber DSP config (uses node.software-dsp module like Asahi Linux)
 if ls ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf 1> /dev/null 2>&1; then
-    echo "Copying WirePlumber DSP config to /etc/wireplumber/wireplumber.conf.d"
-    sudo mkdir -p /etc/wireplumber/wireplumber.conf.d
-    sudo cp ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf /etc/wireplumber/wireplumber.conf.d/
+    echo "Installing WirePlumber DSP config to /etc/wireplumber/wireplumber.conf.d"
+    sudo install -d -o root -g root -m 0755 /etc/wireplumber/wireplumber.conf.d
+    for conf in ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf; do
+        sudo install -o root -g root -m 0644 "$conf" /etc/wireplumber/wireplumber.conf.d/
+    done
 fi
 
 # Install FIRs, DSP graphs, and Lua scripts to /usr/share/t2-linux-audio/${MODEL_DIR}
-echo "Copying FIRs, DSP graphs, and Lua scripts to /usr/share/t2-linux-audio/${MODEL_DIR}"
-sudo mkdir -p /usr/share/t2-linux-audio/${MODEL_DIR}
-sudo cp ${FIRS_DIR}/${MODEL_DIR}/*.wav /usr/share/t2-linux-audio/${MODEL_DIR}/ 2>/dev/null
-sudo cp ${FIRS_DIR}/${MODEL_DIR}/*.json /usr/share/t2-linux-audio/${MODEL_DIR}/ 2>/dev/null
-sudo cp ${FIRS_DIR}/${MODEL_DIR}/*.lua /usr/share/t2-linux-audio/${MODEL_DIR}/ 2>/dev/null
-sudo chmod -R o+r /usr/share/t2-linux-audio/${MODEL_DIR}/ 2>/dev/null
+echo "Installing FIRs, DSP graphs, and Lua scripts to /usr/share/t2-linux-audio/${MODEL_DIR}"
+sudo install -d -o root -g root -m 0755 /usr/share/t2-linux-audio/${MODEL_DIR}
+for ext in wav json lua; do
+    for file in ${FIRS_DIR}/${MODEL_DIR}/*.$ext; do
+        [ -e "$file" ] || continue
+        sudo install -o root -g root -m 0644 "$file" /usr/share/t2-linux-audio/${MODEL_DIR}/
+    done
+done
 
 # Create symlink for WirePlumber to find Lua scripts
 if ls /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua 1> /dev/null 2>&1; then
     echo "Creating symlinks for WirePlumber Lua scripts"
-    sudo mkdir -p /usr/share/wireplumber/scripts/device
+    sudo install -d -o root -g root -m 0755 /usr/share/wireplumber/scripts/device
     for lua_file in /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua; do
         lua_basename=$(basename "$lua_file")
         sudo ln -sf "$lua_file" /usr/share/wireplumber/scripts/device/"$lua_basename"
@@ -98,11 +106,11 @@ if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf" ]; then
 fi
 
 echo "Restarting WirePlumber and PipeWire for current user ...."
-systemctl --user restart wireplumber pipewire pipewire-pulse
+restart_user_audio
 echo ""
 echo "Installation complete!"
-echo "The raw Apple Audio Device should now be hidden."
-echo "Only the DSP-processed outputs should be visible."
+echo "The raw Apple Audio Device nodes are hidden; only DSP outputs are visible."
+echo "Use the DSP nodes for normal playback and recording:"
 
 # Check if mic config exists for this model
 if ls ${FIRS_DIR}/${MODEL_DIR}/mic.json 1> /dev/null 2>&1; then

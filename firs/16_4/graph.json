@@ -201,7 +201,7 @@
         "node.name": "effect_output.t2-164-speakers",
         "node.description": "MacBook Pro T2 DSP Speakers Out",
         "media.name": "MacBook Pro T2 DSP Speakers Out",
-        "target.object": "alsa_output.pci-0000_04_00.3.Speakers",
+        "target.object": "alsa_output.platform-sound.RawSpeakers",
         "node.dont-fallback": "true",
         "node.passive": "true",
         "audio.channels": "6",

@@ -4,6 +4,11 @@
 # Removes all files installed by install.sh or the deb (see INSTALL_PATHS.md).
 
 set -e
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" && pwd -P)"
+# shellcheck source=restart-user-audio.sh
+. "$SCRIPT_DIR/restart-user-audio.sh"
+
 echo "Uninstalling T2 Apple Audio DSP configs"
 
 echo "Removing WirePlumber DSP config from /etc/wireplumber/wireplumber.conf.d"
@@ -20,5 +25,5 @@ echo "Removing audio data (FIRs, graphs, Lua) from /usr/share/t2-linux-audio"
 sudo rm -rf /usr/share/t2-linux-audio
 
 echo "Restarting Pipewire for current user ...."
-systemctl --user restart wireplumber pipewire pipewire-pulse
+restart_user_audio
 echo "Done."

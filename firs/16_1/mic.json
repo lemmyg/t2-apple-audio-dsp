@@ -82,7 +82,7 @@
         "audio.position": ["AUX0", "AUX1", "AUX2"],
         "audio.channels": "3",
         "stream.dont-remix": "true",
-        "target.object": "alsa_input.pci-0000_04_00.3.BuiltinMic",
+        "target.object": "alsa_input.platform-sound.RawMics",
         "node.passive": "true",
         "node.virtual": "false",
         "state.default-volume": 1.00,

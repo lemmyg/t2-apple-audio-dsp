@@ -11,7 +11,7 @@ cp debian/postinst temp/DEBIAN/postinst
 chmod +x temp/DEBIAN/postinst
 if [ -f debian/postrm ]; then
     cp debian/postrm temp/DEBIAN/postrm
-    chmod +x temp/DEBIAN/postrm
+    chmodm +x temp/DEBIAN/postrm
 fi
 if [ -f debian/copyright ]; then
     cp debian/copyright temp/DEBIAN/copyright

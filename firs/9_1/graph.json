@@ -158,7 +158,7 @@
         "node.name": "effect_output.t2-91-speakers",
         "node.description": "MacBook Air 9,1 Speakers DSP Out",
         "media.name": "MacBook Air 9,1 Speakers DSP Out",
-        "target.object": "alsa_output.pci-0000_04_00.3.Speakers",
+        "target.object": "alsa_output.platform-sound.RawSpeakers",
         "node.dont-fallback": "true",
         "node.passive": "true",
         "audio.channels": "2",
