@@ -9,7 +9,7 @@ Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
 ## Supported models:
     
-    # MacBook Pro 16 2019: Id: 16_1 and 16_4
+    # MacBook Pro 16 2019: Id: 16_1, 16_2 and 16_4
 
     The project has been adjusted to test Asahi Linux audio workflow on a MacBook Por 16 2019 T2 audio driver.
 
@@ -32,6 +32,8 @@ Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
 ## Installation instructions
 
+Install the ALSA UCM profiles first (`sudo ./install-ucm.sh`). In the future these profiles will be shipped as an Ubuntu package or bundled directly with the kernel.
+
 Install base T2 audio config from [t2-audio](https://wiki.t2linux.org/guides/audio-config)
 
 Once the audio is working, you can install the FIRs config in your system.
@@ -53,7 +55,7 @@ sudo apt install bankstown-lv2 triforce-lv2 lsp-plugins-lv2 swh-lv2
 Clone the git branch and install the FIRs config:
 
 ```sh
-git clone -b speakers_161 https://github.com/lemmyg/t2-apple-audio-dsp.git
+git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
 cd t2-apple-audio-dsp
 bash install.sh
 ```
