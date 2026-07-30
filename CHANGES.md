@@ -6,6 +6,7 @@ CHANGES
   ** Added new ucm2 profiles support.
   ** Config files refactoring.
   ** Add support for 15_1 and 16_2.
+  ** Using devices nick names.
   ** General installation update.
 
 * 1.0.1-1:

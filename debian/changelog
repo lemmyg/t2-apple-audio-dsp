@@ -1,4 +1,14 @@
-t2-apple-audio-dsp (1.0.1-1) oracular; urgency=low
+t2-apple-audio-dsp (1.1.0-0) oracular; urgency=low
+
+  * Added new ucm2 profiles support.
+  * Config files refactoring.
+  * Add support for 15_1 and 16_2.
+  * Using devices nick names.
+  * General installation update.
+
+ -- lemmygl@protonmail.com  15 Mar 2026
+ 
+ t2-apple-audio-dsp (1.0.1-1) oracular; urgency=low
 
   * Fixed support for 9_1 model.
 
