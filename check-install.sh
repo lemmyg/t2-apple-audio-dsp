@@ -17,31 +17,33 @@ check() {
     fi
 }
 
+MODEL=$(cat /sys/class/dmi/id/product_name 2>/dev/null)
+# DMI name e.g. MacBookPro16,1 -> config dir 16_1 (\2=major, \3=minor; \1 Air/Pro unused)
+model=$(printf '%s\n' "$MODEL" | sed -n 's/^MacBook\(Air\|Pro\)\([0-9][0-9]*\),\([0-9][0-9]*\)/\2_\3/p')
+if [ -z "$model" ]; then
+    echo "Error: unsupported model: ${MODEL:-unknown}"
+    exit 1
+fi
+
 echo "=== WirePlumber DSP config ==="
 dsp_conf="/etc/wireplumber/wireplumber.conf.d/51-t2-dsp.conf"
 check "$dsp_conf"
 
 echo ""
-echo "=== Audio data: /usr/share/t2-linux-audio/<model>/ ==="
-for model in 16_1 9_1; do
-    dir="/usr/share/t2-linux-audio/$model"
-    if [ -d "$dir" ]; then
-        check "$dir"
-        check "$dir/graph.json"
-        check "$dir/t2-force-unmute.lua"
-        [ "$model" = "16_1" ] && check "$dir/mic.json"
-        # At least one .wav
-        if ls "$dir"/*.wav 1>/dev/null 2>&1; then
-            echo "  OK   $dir/*.wav (present)"
-            OK=$((OK + 1))
-        else
-            echo "  MISS $dir/*.wav"
-            MISSING=$((MISSING + 1))
-        fi
-    else
-        echo "  skip $dir (not present)"
-    fi
-done
+echo "=== Audio data: /usr/share/t2-linux-audio/$model/ ==="
+dir="/usr/share/t2-linux-audio/$model"
+check "$dir"
+check "$dir/graph.json"
+check "$dir/t2-force-unmute.lua"
+[ "$model" = "16_1" ] && check "$dir/mic.json"
+# At least one .wav
+if ls "$dir"/*.wav 1>/dev/null 2>&1; then
+    echo "  OK   $dir/*.wav (present)"
+    OK=$((OK + 1))
+else
+    echo "  MISS $dir/*.wav"
+    MISSING=$((MISSING + 1))
+fi
 
 echo ""
 echo "=== Lua symlinks: /usr/share/wireplumber/scripts/device/ -> t2-linux-audio ==="
