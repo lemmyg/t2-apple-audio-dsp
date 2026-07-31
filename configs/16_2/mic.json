@@ -78,23 +78,22 @@
         ]
     },
     "capture.props": {
-        "node.name": "effect_input.t2-151-mic",
+        "node.name": "effect_input.t2-162-mic",
         "audio.position": ["AUX0", "AUX1", "AUX2"],
         "audio.channels": "3",
         "stream.dont-remix": "true",
         "target.object": "alsa_input.platform-sound.RawMics",
         "node.passive": "true",
-        "node.pause-on-idle": "true",
         "node.virtual": "false",
         "state.default-volume": 1.00,
         "audio.allowed-rates": [44100, 48000]
     },
     "playback.props": {
-        "node.name": "audio_effect.t2-151-mic",
+        "node.name": "audio_effect.t2-162-mic",
         "node.description": "MacBook Pro T2 DSP Mic",
         "media.name": "MacBook Pro T2 DSP Mic",
         "media.class": "Audio/Source",
-        "node.pause-on-idle": "true",
+        "node.passive": "true",
         "audio.position": ["MONO"],
         "audio.channels": "1",
         "node.virtual": "false",

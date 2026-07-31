@@ -146,7 +146,7 @@
                     "mode": 0,
                     "ce_0": 1,
                     "sla_0": 5.0,
-                    "scr_0": 1.75,
+                    "cr_0": 1.75,
                     "al_0": 0.625,
                     "at_0": 1.0,
                     "rt_0": 100,
@@ -194,7 +194,7 @@
             {"output": "fwoofer_bp:out_l", "input": "fwoofer_lim:in_l"},
             {"output": "fwoofer_bp:out_r", "input": "fwoofer_lim:in_r"},
             {"output": "rwoofer_bp:out_l", "input": "rwoofer_lim:in_l"},
-            {"output": "rwoofer_bp:out_r", "input": "rwoofer_lim:in_r"},
+            {"output": "rwoofer_bp:out_r", "input": "rwoofer_lim:in_r"}
         ],
         "inputs": [
             "bassex:in_l",
