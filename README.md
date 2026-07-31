@@ -53,7 +53,7 @@ sudo apt install bankstown-lv2 triforce-lv2 lsp-plugins-lv2 swh-lv2
 Clone the git branch and install the FIRs config:
 
 ```sh
-git clone -b speakers_161 https://github.com/lemmyg/t2-apple-audio-dsp.git
+git clone https://github.com/lemmyg/t2-apple-audio-dsp.git
 cd t2-apple-audio-dsp
 bash install.sh
 ```
