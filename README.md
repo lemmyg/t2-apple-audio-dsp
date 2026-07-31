@@ -9,7 +9,7 @@ Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
 ## Supported models:
     
-    # MacBook Pro 16 2019: Id: 16_1 and 16_4
+    # MacBook Pro 16 2019: Id: 16_1, 16_2 and 16_4
 
     The project has been adjusted to test Asahi Linux audio workflow on a MacBook Por 16 2019 T2 audio driver.
 
@@ -31,6 +31,8 @@ Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
 
 ## Installation instructions
+
+Install the ALSA UCM profiles first (`sudo ./install-ucm.sh`). In the future these profiles will be shipped as an Ubuntu package or bundled directly with the kernel.
 
 Install base T2 audio config from [t2-audio](https://wiki.t2linux.org/guides/audio-config)
 
