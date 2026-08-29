@@ -1,6 +1,6 @@
 #!/bin/sh
 # SPDX-License-Identifier: MIT
-# (C) 2025 Linux T2 Kernel Team
+# (C) 2026 Linux T2 Kernel Team
 # Verify that all T2 Apple Audio DSP files are installed (see INSTALL_PATHS.md).
 
 set -e

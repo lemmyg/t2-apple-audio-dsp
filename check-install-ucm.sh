@@ -1,6 +1,6 @@
 #!/bin/sh
 # SPDX-License-Identifier: MIT
-# (C) 2025 Linux T2 Kernel Team
+# (C) 2026 Linux T2 Kernel Team
 # Verify that Apple T2 ALSA UCM profiles are installed.
 
 set -e

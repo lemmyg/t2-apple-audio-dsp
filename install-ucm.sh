@@ -1,6 +1,6 @@
 #!/bin/bash
 # SPDX-License-Identifier: MIT
-# (C) 2025 Linux T2 Kernel Team
+# (C) 2026 Linux T2 Kernel Team
 #
 # Standalone install: run from the source directory or pass a UCM source path.
 # Installs Apple T2 ALSA UCM profiles to /usr/share/alsa/ucm2.

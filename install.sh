@@ -1,6 +1,6 @@
 #!/bin/bash
 # SPDX-License-Identifier: MIT
-# (C) 2025 Linux T2 Kernel Team
+# (C) 2026 Linux T2 Kernel Team
 #
 # Standalone install: run from the source directory. Installs to the same
 # paths as the deb package; see INSTALL_PATHS.md.
