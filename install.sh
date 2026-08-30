@@ -5,10 +5,6 @@
 # Standalone install: run from the source directory. Installs to the same
 # paths as the deb package; see INSTALL_PATHS.md.
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" && pwd -P)"
-# shellcheck source=restart-user-audio.sh
-. "$SCRIPT_DIR/restart-user-audio.sh"
-
 if [ ! -d "configs" ]; then
     echo "Error: Run this script from the source directory (must contain configs/)."
     exit 1

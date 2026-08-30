@@ -37,9 +37,9 @@ UCM source files live in `ucm2/` in the repo (or `/usr/share/t2-apple-audio-dsp/
 
 ### UCM config
 
-- **Standalone**: run `sudo ./install-ucm.sh` from the source tree (uses `./ucm2` by default).
-- **Deb**: run `sudo /usr/share/t2-apple-audio-dsp/install-ucm.sh`.
+- **Standalone**: run `./install-ucm.sh` from the source tree (uses `./ucm2` by default).
+- **Deb**: run `/usr/share/t2-apple-audio-dsp/install-ucm.sh`.
 
-**Uninstall**: `sudo ./uninstall-ucm.sh` (or the deb copy under `/usr/share/t2-apple-audio-dsp/`).
+**Uninstall**: `./uninstall-ucm.sh` (or the deb copy under `/usr/share/t2-apple-audio-dsp/`).
 
 Install UCM before DSP config so PipeWire/WirePlumber see the correct ALSA devices.

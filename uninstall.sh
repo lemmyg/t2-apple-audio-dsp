@@ -5,10 +5,6 @@
 
 set -e
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" && pwd -P)"
-# shellcheck source=restart-user-audio.sh
-. "$SCRIPT_DIR/restart-user-audio.sh"
-
 echo "Uninstalling T2 Apple Audio DSP configs"
 
 echo "Removing WirePlumber DSP config from /etc/wireplumber/wireplumber.conf.d"

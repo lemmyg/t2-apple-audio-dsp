@@ -30,6 +30,6 @@ if [ "$MISSING" -eq 0 ]; then
     echo "All checked UCM files present ($OK items)."
     exit 0
 else
-    echo "Some UCM items missing ($MISSING). Re-run install: sudo ./install-ucm.sh"
+    echo "Some UCM items missing ($MISSING). Re-run install: ./install-ucm.sh"
     exit 1
 fi

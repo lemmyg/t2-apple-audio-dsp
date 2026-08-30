@@ -32,7 +32,7 @@ Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
 ## Installation instructions
 
-Install the ALSA UCM profiles first (`sudo ./install-ucm.sh`). In the future these profiles will be shipped as an Ubuntu package or bundled directly with the kernel.
+Install the ALSA UCM profiles first (`./install-ucm.sh`). In the future these profiles will be shipped as an Ubuntu package or bundled directly with the kernel.
 
 Install base T2 audio config from [t2-audio](https://wiki.t2linux.org/guides/audio-config)
 

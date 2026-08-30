@@ -10,6 +10,6 @@ Source: [KaiT2en-Fedora `t2bce_audio-alsa-ucm-conf`](https://github.com/KaiT2en/
 Installed to `/usr/share/alsa/ucm2` by `install-ucm.sh` (separate from the DSP install).
 
 ```sh
-sudo ./install-ucm.sh
-sudo ./uninstall-ucm.sh
+./install-ucm.sh
+./uninstall-ucm.sh
 ```
