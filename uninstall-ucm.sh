@@ -34,5 +34,6 @@ done
 
 rmdir "$UCM_DST/AppleT2" 2>/dev/null || true
 
-restart_user_audio
+echo "Restarting WirePlumber and PipeWire for current user or reboot to take effect...."
+echo "run: systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo "Apple T2 ALSA UCM profile removed"

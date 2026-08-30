@@ -24,6 +24,6 @@ sudo rm -f /usr/share/wireplumber/scripts/device/t2-force-unmute.lua
 echo "Removing audio data (FIRs, graphs, Lua) from /usr/share/t2-linux-audio"
 sudo rm -rf /usr/share/t2-linux-audio
 
-echo "Restarting Pipewire for current user ...."
-restart_user_audio
+echo "Restarting WirePlumber and PipeWire for current user or reboot to take effect...."
+echo "run: systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo "Done."

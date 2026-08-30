@@ -62,5 +62,6 @@ for driver in AppleT2x2 AppleT2x4 AppleT2x6; do
         "$UCM_SRC/conf.d/$driver/$driver.conf" "$UCM_DST/conf.d/$driver/$driver.conf"
 done
 
-restart_user_audio
+echo "Restarting WirePlumber and PipeWire for current user or reboot to take effect...."
+echo "run: systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo "Apple T2 ALSA UCM profile installed"

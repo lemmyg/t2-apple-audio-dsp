@@ -111,8 +111,8 @@ if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf" ]; then
     sudo rm -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf"
 fi
 
-echo "Restarting WirePlumber and PipeWire for current user ...."
-restart_user_audio
+echo "Restarting WirePlumber and PipeWire for current user or reboot to take effect...."
+echo "run: systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo ""
 echo "Installation complete!"
 echo "The raw Apple Audio Device nodes are hidden; only DSP outputs are visible."
