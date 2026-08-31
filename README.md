@@ -5,7 +5,7 @@ Based on Asahi Linux userspace audio configuration.
 This project is part of [T2 kernel team](https://wiki.t2linux.org/).
 
 The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and speakers in Linux. 
-Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
+Thanks to Asahi Linux, chadmed, Drakelerex, Manawyrm and deqrocks.
 
 ## Supported models:
     
@@ -34,11 +34,9 @@ Thanks to Asahi Linux, chadmed, Drakelerex and Manawyrm.
 
 Install the ALSA UCM profiles first (`./install-ucm.sh`). In the future these profiles will be shipped as an Ubuntu package or bundled directly with the kernel.
 
-Install base T2 audio config from [t2-audio](https://wiki.t2linux.org/guides/audio-config)
-
 Once the audio is working, you can install the FIRs config in your system.
-Note that this configuration has been tested on Ubuntu 25.10. 
-For previous versions please check speakers_161 and mic branches.
+Note that this configuration has been tested on Ubuntu 25.10 and 26.04. 
+For olders versions please check speakers_161 and mic branches.
 
 ### 1a - Ubuntu dep package
 
