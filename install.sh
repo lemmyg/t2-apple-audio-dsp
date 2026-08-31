@@ -5,10 +5,6 @@
 # Standalone install: run from the source directory. Installs to the same
 # paths as the deb package; see INSTALL_PATHS.md.
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" && pwd -P)"
-# shellcheck source=restart-user-audio.sh
-. "$SCRIPT_DIR/restart-user-audio.sh"
-
 if [ ! -d "configs" ]; then
     echo "Error: Run this script from the source directory (must contain configs/)."
     exit 1
@@ -111,8 +107,8 @@ if [ -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf" ]; then
     sudo rm -f "/etc/pipewire/pipewire.conf.d/t2_${OLD_MODEL_ID}_mic.conf"
 fi
 
-echo "Restarting WirePlumber and PipeWire for current user ...."
-restart_user_audio
+echo "Restarting WirePlumber and PipeWire for current user or reboot to take effect...."
+echo "run: systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo ""
 echo "Installation complete!"
 echo "The raw Apple Audio Device nodes are hidden; only DSP outputs are visible."

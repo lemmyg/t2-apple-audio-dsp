@@ -5,10 +5,6 @@
 
 set -e
 
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]:-$0}")" && pwd -P)"
-# shellcheck source=restart-user-audio.sh
-. "$SCRIPT_DIR/restart-user-audio.sh"
-
 echo "Uninstalling T2 Apple Audio DSP configs"
 
 echo "Removing WirePlumber DSP config from /etc/wireplumber/wireplumber.conf.d"
@@ -24,6 +20,6 @@ sudo rm -f /usr/share/wireplumber/scripts/device/t2-force-unmute.lua
 echo "Removing audio data (FIRs, graphs, Lua) from /usr/share/t2-linux-audio"
 sudo rm -rf /usr/share/t2-linux-audio
 
-echo "Restarting Pipewire for current user ...."
-restart_user_audio
+echo "Restarting WirePlumber and PipeWire for current user or reboot to take effect...."
+echo "run: systemctl --user restart wireplumber pipewire pipewire-pulse"
 echo "Done."
