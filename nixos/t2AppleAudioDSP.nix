@@ -25,7 +25,7 @@
         sha256 = "ZjZbsyhlFzGZ1Nv1ESm0Vvu+wHMgpiyCe5hcsZLyDCc=";
       };
 
-      oldPath = "/usr/share/t2-linux-audio/${config.t2AppleAudioDSP.model}";
+      oldPath = "/usr/share/t2linux-audio/${config.t2AppleAudioDSP.model}";
       newPath = "${t2AppleAudioDSP}/firs/${config.t2AppleAudioDSP.model}";
       configFile = "${t2AppleAudioDSP}/config/${config.t2AppleAudioDSP.model}/51-t2-dsp.conf";
 

@@ -81,9 +81,9 @@
                 "name": "convLT",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/15_1/tweeters-44k.wav",
-                        "/usr/share/t2-linux-audio/15_1/tweeters-48k.wav",
-                        "/usr/share/t2-linux-audio/15_1/tweeters-96k.wav"
+                        "/usr/share/t2linux-audio/15_1/tweeters-44k.wav",
+                        "/usr/share/t2linux-audio/15_1/tweeters-48k.wav",
+                        "/usr/share/t2linux-audio/15_1/tweeters-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -95,9 +95,9 @@
                 "name": "convRT",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/15_1/tweeters-44k.wav",
-                        "/usr/share/t2-linux-audio/15_1/tweeters-48k.wav",
-                        "/usr/share/t2-linux-audio/15_1/tweeters-96k.wav"
+                        "/usr/share/t2linux-audio/15_1/tweeters-44k.wav",
+                        "/usr/share/t2linux-audio/15_1/tweeters-48k.wav",
+                        "/usr/share/t2linux-audio/15_1/tweeters-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -109,9 +109,9 @@
                 "name": "convLW",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/15_1/woofers-44k.wav",
-                        "/usr/share/t2-linux-audio/15_1/woofers-48k.wav",
-                        "/usr/share/t2-linux-audio/15_1/woofers-96k.wav"
+                        "/usr/share/t2linux-audio/15_1/woofers-44k.wav",
+                        "/usr/share/t2linux-audio/15_1/woofers-48k.wav",
+                        "/usr/share/t2linux-audio/15_1/woofers-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -123,9 +123,9 @@
                 "name": "convRW",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/15_1/woofers-44k.wav",
-                        "/usr/share/t2-linux-audio/15_1/woofers-48k.wav",
-                        "/usr/share/t2-linux-audio/15_1/woofers-96k.wav"
+                        "/usr/share/t2linux-audio/15_1/woofers-44k.wav",
+                        "/usr/share/t2linux-audio/15_1/woofers-48k.wav",
+                        "/usr/share/t2linux-audio/15_1/woofers-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0

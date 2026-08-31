@@ -21,23 +21,19 @@ fi
 mkdir -p temp/usr/share/t2-apple-audio-dsp
 cp -r configs temp/usr/share/t2-apple-audio-dsp/
 
-# Install wav, json, and Lua scripts to /usr/share/t2-linux-audio (same as install.sh)
+# Install wav and json files to /usr/share/t2linux-audio (same as install.sh)
 for model_dir in configs/*/; do
     if [ -d "$model_dir" ]; then
         model=$(basename "$model_dir")
-        mkdir -p "temp/usr/share/t2-linux-audio/${model}"
+        mkdir -p "temp/usr/share/t2linux-audio/${model}"
         for ext in wav json; do
             for file in "$model_dir"*."$ext"; do
                 [ -e "$file" ] || continue
-                cp "$file" "temp/usr/share/t2-linux-audio/${model}/"
+                cp "$file" "temp/usr/share/t2linux-audio/${model}/"
             done
         done
-        for file in configs/*.lua; do
-            [ -e "$file" ] || continue
-            cp "$file" "temp/usr/share/t2-linux-audio/${model}/"
-        done
-        chmod 755 "temp/usr/share/t2-linux-audio/${model}" 2>/dev/null || true
-        chmod 644 "temp/usr/share/t2-linux-audio/${model}"/* 2>/dev/null || true
+        chmod 755 "temp/usr/share/t2linux-audio/${model}" 2>/dev/null || true
+        chmod 644 "temp/usr/share/t2linux-audio/${model}"/* 2>/dev/null || true
     fi
 done
 

@@ -7,7 +7,15 @@ if [ "$1" != "remove" ] && [ "$1" != "purge" ]; then
   exit 0
 fi
 
+echo "Removing udev ALSA card rename rule"
+rm -f /etc/udev/rules.d/99-t2-audio-rename.rules
+if command -v udevadm >/dev/null 2>&1; then
+    udevadm control --reload-rules
+    udevadm trigger --subsystem-match=sound --action=change
+fi
+
 echo "Removing WirePlumber DSP config from /etc/wireplumber/wireplumber.conf.d"
+rm -f /etc/wireplumber/wireplumber.conf.d/50-t2-audio.conf
 rm -f /etc/wireplumber/wireplumber.conf.d/*-dsp.conf
 
 echo "Removing old PipeWire config if present"
@@ -17,8 +25,8 @@ rm -f /etc/pipewire/pipewire.conf.d/*-t2-dsp.conf
 echo "Removing Lua script symlinks from /usr/share/wireplumber/scripts/device"
 rm -f /usr/share/wireplumber/scripts/device/t2-force-unmute.lua
 
-echo "Removing audio data (FIRs, graphs, Lua) from /usr/share/t2-linux-audio"
-rm -rf /usr/share/t2-linux-audio
+echo "Removing audio data (FIRs, graphs, Lua) from /usr/share/t2linux-audio"
+rm -rf /usr/share/t2linux-audio /usr/share/t2-linux-audio
 
 echo "To apply: systemctl --user restart wireplumber pipewire pipewire-pulse"
 

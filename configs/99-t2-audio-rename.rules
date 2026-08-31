@@ -1,0 +1,3 @@
+# Rename the t2bce_audio ALSA card id to t2-<model_dir> (e.g. t2-16_1).
+# Full DMI names like t2-MacBookPro16,1 exceed ALSA's 15-character id and truncate.
+SUBSYSTEMS=="sound", DEVPATH=="/devices/pci0000:00/*/*/t2bce_audio/t2bce_audio/card?", ATTR{id}="t2-@MODEL_DIR@"

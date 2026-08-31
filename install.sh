@@ -11,8 +11,19 @@ if [ ! -d "configs" ]; then
 fi
 CONFIG_DIR="configs"
 
-# Model dict: "model_id dir_name ..." — add more models here (POSIX sh compatible)
-MODEL_DICT="MacBookAir9,1 9_1 MacBookPro15,1 15_1 MacBookPro16,1 16_1 MacBookPro16,2 16_2 MacBookPro16,4 16_4"
+# Model dict: "model_id dir_name" pairs (POSIX sh compatible)
+MODEL_DICT="
+MacBookAir8,1  8_1
+MacBookAir8,2  8_2
+MacBookAir9,1  9_1
+MacBookPro15,1 15_1
+MacBookPro15,2 15_2
+MacBookPro15,4 15_4
+MacBookPro16,1 16_1
+MacBookPro16,2 16_2
+MacBookPro16,3 16_3
+MacBookPro16,4 16_4
+"
 
 get_model_dir() {
     local model="$1"
@@ -59,41 +70,34 @@ fi
 echo "Detected model: ${MODEL} (using directory: ${MODEL_DIR})"
 echo "Installing DSP config for ${MODEL}"
 
-# Install WirePlumber DSP config (uses node.software-dsp module like Asahi Linux)
-if ls ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf 1> /dev/null 2>&1; then
-    echo "Installing WirePlumber config to /etc/wireplumber/wireplumber.conf.d"
-    sudo install -d -o root -g root -m 0755 /etc/wireplumber/wireplumber.conf.d
-    for conf in ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf; do
-        sudo install -o root -g root -m 0644 "$conf" /etc/wireplumber/wireplumber.conf.d/
-    done
+# Rename the t2bce_audio ALSA card id to t2-<model_dir> (e.g. t2-16_1).
+# Full DMI names like t2-MacBookPro16,1 exceed ALSA's 15-character id and truncate.
+UDEV_SRC="${CONFIG_DIR}/99-t2-audio-rename.rules"
+if [ -f "$UDEV_SRC" ]; then
+    echo "Installing udev rule to /etc/udev/rules.d/99-t2-audio-rename.rules (id=t2-${MODEL_DIR})"
+    sed "s/@MODEL_DIR@/${MODEL_DIR}/g" "$UDEV_SRC" | sudo tee /etc/udev/rules.d/99-t2-audio-rename.rules >/dev/null
+    sudo chmod 0644 /etc/udev/rules.d/99-t2-audio-rename.rules
+    sudo udevadm control --reload-rules
+    sudo udevadm trigger --subsystem-match=sound --action=change
+else
+    echo "Warning: ${UDEV_SRC} not found, skipping ALSA card rename"
 fi
 
-# Install FIRs, DSP graphs, wav files, and json files to /usr/share/t2-linux-audio/${MODEL_DIR}
-echo "Installing DSP graphs, wav files, and json files to /usr/share/t2-linux-audio/${MODEL_DIR}"
-sudo install -d -o root -g root -m 0755 /usr/share/t2-linux-audio/${MODEL_DIR}
+# Install WirePlumber config (alsa.id rules + per-model DSP graphs)
+echo "Installing WirePlumber config to /etc/wireplumber/wireplumber.conf.d"
+sudo install -d -o root -g root -m 0755 /etc/wireplumber/wireplumber.conf.d
+sudo install -o root -g root -m 0644 "${CONFIG_DIR}/wireplumber.conf" \
+    /etc/wireplumber/wireplumber.conf.d/50-t2-audio.conf
+
+# Install FIRs, DSP graphs, wav files, and json files to /usr/share/t2linux-audio/${MODEL_DIR}
+echo "Installing DSP graphs, wav files, and json files to /usr/share/t2linux-audio/${MODEL_DIR}"
+sudo install -d -o root -g root -m 0755 /usr/share/t2linux-audio/${MODEL_DIR}
 for ext in wav json; do
     for file in ${CONFIG_DIR}/${MODEL_DIR}/*.$ext; do
         [ -e "$file" ] || continue
-        sudo install -o root -g root -m 0644 "$file" /usr/share/t2-linux-audio/${MODEL_DIR}/
+        sudo install -o root -g root -m 0644 "$file" /usr/share/t2linux-audio/${MODEL_DIR}/
     done
 done
-
-# Install Lua scripts to /usr/share/t2-linux-audio/${MODEL_DIR}
-echo "Installing Lua scripts to /usr/share/t2-linux-audio/${MODEL_DIR}"
-for file in ${CONFIG_DIR}/*.lua; do
-    [ -e "$file" ] || continue
-    sudo install -o root -g root -m 0644 "$file" /usr/share/t2-linux-audio/${MODEL_DIR}/
-done
-
-# Create symlink for WirePlumber to find Lua scripts
-if ls /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua 1> /dev/null 2>&1; then
-    echo "Creating symlinks for WirePlumber Lua scripts"
-    sudo install -d -o root -g root -m 0755 /usr/share/wireplumber/scripts/device
-    for lua_file in /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua; do
-        lua_basename=$(basename "$lua_file")
-        sudo ln -sf "$lua_file" /usr/share/wireplumber/scripts/device/"$lua_basename"
-    done
-fi
 
 # Clean up old PipeWire configurations (now using WirePlumber for both speakers and mic)
 OLD_MODEL_ID=$(echo "$MODEL_DIR" | tr -d '_')

@@ -1,6 +1,6 @@
 {
-    "node.description": "MacBook Pro T2 DSP Mic",
-    "media.name": "MacBook Pro T2 DSP Mic",
+    "node.description": "MacBook Pro 16,3 DSP Mic",
+    "media.name": "MacBook Pro 16,3 DSP Mic",
     "filter.graph": {
         "nodes": [
             {
@@ -43,11 +43,12 @@
                 }
             },
             {
-                "type": "builtin",
-                "label": "mixer",
-                "name": "mixFinal",
+                "type": "ladspa",
+                "plugin": "amp_1181",
+                "label": "amp",
+                "name": "preamp",
                 "control": {
-                    "Gain 1": 80
+                    "Amps gain (dB)": 35
                 }
             },
             {
@@ -59,14 +60,42 @@
                     "Gain": 1,
                     "Q": 0.707
                 }
+            },
+            {
+                "type": "ladspa",
+                "plugin": "sc4_1882",
+                "label": "sc4",
+                "name": "compressor",
+                "control": {
+                    "RMS/peak": 0,
+                    "Attack time (ms)": 50,
+                    "Release time (ms)": 300,
+                    "Threshold level (dB)": -12,
+                    "Ratio (1:n)": 4,
+                    "Knee radius (dB)": 3,
+                    "Makeup gain (dB)": 5
+                }
+            },
+            {
+                "type": "ladspa",
+                "plugin": "fast_lookahead_limiter_1913",
+                "label": "fastLookaheadLimiter",
+                "name": "lim",
+                "control": {
+                    "Input gain (dB)": 0,
+                    "Limit (dB)": -1,
+                    "Release time (s)": 0.8
+                }
             }
         ],
         "links": [
             {"output": "mixL:Out", "input": "bf:in_1"},
             {"output": "mixR:Out", "input": "bf:in_2"},
             {"output": "mixO:Out", "input": "bf:in_3"},
-            {"output": "bf:out", "input": "mixFinal:In 1"},
-            {"output": "mixFinal:Out", "input": "hpf:In"}
+            {"output": "bf:out", "input": "preamp:Input"},
+            {"output": "preamp:Output", "input": "hpf:In"},
+            {"output": "hpf:Out", "input": "compressor:Left input"},
+            {"output": "compressor:Left output", "input": "lim:Input 1"}
         ],
         "inputs": [
             "mixL:In 1",
@@ -74,11 +103,11 @@
             "mixO:In 1"
         ],
         "outputs": [
-            "hpf:Out"
+            "lim:Output 1"
         ]
     },
     "capture.props": {
-        "node.name": "effect_input.t2-161-mic",
+        "node.name": "effect_input.t2-163-mic",
         "audio.position": ["AUX0", "AUX1", "AUX2"],
         "audio.channels": "3",
         "stream.dont-remix": "true",
@@ -90,9 +119,9 @@
         "audio.allowed-rates": [44100, 48000]
     },
     "playback.props": {
-        "node.name": "audio_effect.t2-161-mic",
-        "node.description": "MacBook Pro T2 DSP Mic",
-        "media.name": "MacBook Pro T2 DSP Mic",
+        "node.name": "audio_effect.t2-163-mic",
+        "node.description": "MacBook Pro 16,3 DSP Mic",
+        "media.name": "MacBook Pro 16,3 DSP Mic",
         "media.class": "Audio/Source",
         "node.pause-on-idle": "true",
         "audio.position": ["MONO"],
