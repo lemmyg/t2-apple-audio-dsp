@@ -71,9 +71,9 @@
                 "name": "convLT",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/16_4/tweeters-44k.wav",
-                        "/usr/share/t2-linux-audio/16_4/tweeters-48k.wav",
-                        "/usr/share/t2-linux-audio/16_4/tweeters-96k.wav"
+                        "/usr/share/t2linux-audio/16_4/tweeters-44k.wav",
+                        "/usr/share/t2linux-audio/16_4/tweeters-48k.wav",
+                        "/usr/share/t2linux-audio/16_4/tweeters-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -85,9 +85,9 @@
                 "name": "convRT",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/16_4/tweeters-44k.wav",
-                        "/usr/share/t2-linux-audio/16_4/tweeters-48k.wav",
-                        "/usr/share/t2-linux-audio/16_4/tweeters-96k.wav"
+                        "/usr/share/t2linux-audio/16_4/tweeters-44k.wav",
+                        "/usr/share/t2linux-audio/16_4/tweeters-48k.wav",
+                        "/usr/share/t2linux-audio/16_4/tweeters-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -99,9 +99,9 @@
                 "name": "convLW",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/16_4/woofers-44k.wav",
-                        "/usr/share/t2-linux-audio/16_4/woofers-48k.wav",
-                        "/usr/share/t2-linux-audio/16_4/woofers-96k.wav"
+                        "/usr/share/t2linux-audio/16_4/woofers-44k.wav",
+                        "/usr/share/t2linux-audio/16_4/woofers-48k.wav",
+                        "/usr/share/t2linux-audio/16_4/woofers-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -113,9 +113,9 @@
                 "name": "convRW",
                 "config": {
                     "filename": [
-                        "/usr/share/t2-linux-audio/16_4/woofers-44k.wav",
-                        "/usr/share/t2-linux-audio/16_4/woofers-48k.wav",
-                        "/usr/share/t2-linux-audio/16_4/woofers-96k.wav"
+                        "/usr/share/t2linux-audio/16_4/woofers-44k.wav",
+                        "/usr/share/t2linux-audio/16_4/woofers-48k.wav",
+                        "/usr/share/t2linux-audio/16_4/woofers-96k.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0

@@ -1,6 +1,6 @@
 {
-    "node.description": "MacBook Air 9,1 Speakers",
-    "media.name": "MacBook Air 9,1 Speakers",
+    "node.description": "MacBook Air 8,1 Speakers",
+    "media.name": "MacBook Air 8,1 Speakers",
     "filter.graph": {
         "nodes": [
             {
@@ -9,12 +9,12 @@
                 "name": "bassex",
                 "control": {
                     "bypass": 0,
-                    "amt": 0.5,
-                    "sat_second": 1.3,
-                    "sat_third": 2.5,
-                    "blend": 1.0,
-                    "ceil": 200.0,
-                    "floor": 20.0
+                    "amt": 3.0,
+                    "sat_second": 1.5,
+                    "sat_third": 1.5,
+                    "blend": 0.75,
+                    "ceil": 150.0,
+                    "floor": 40.0
                 }
             },
             {
@@ -43,10 +43,10 @@
                 "name": "convL",
                 "config": {
                     "filename": [
-                        "/usr/share/t2linux-audio/9_1/44.wav",
-                        "/usr/share/t2linux-audio/9_1/48.wav",
-                        "/usr/share/t2linux-audio/9_1/96.wav",
-                        "/usr/share/t2linux-audio/9_1/192.wav"
+                        "/usr/share/t2linux-audio/8_1/44.wav",
+                        "/usr/share/t2linux-audio/8_1/48.wav",
+                        "/usr/share/t2linux-audio/8_1/96.wav",
+                        "/usr/share/t2linux-audio/8_1/192.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -58,10 +58,10 @@
                 "name": "convR",
                 "config": {
                     "filename": [
-                        "/usr/share/t2linux-audio/9_1/44.wav",
-                        "/usr/share/t2linux-audio/9_1/48.wav",
-                        "/usr/share/t2linux-audio/9_1/96.wav",
-                        "/usr/share/t2linux-audio/9_1/192.wav"
+                        "/usr/share/t2linux-audio/8_1/44.wav",
+                        "/usr/share/t2linux-audio/8_1/48.wav",
+                        "/usr/share/t2linux-audio/8_1/96.wav",
+                        "/usr/share/t2linux-audio/8_1/192.wav"
                     ],
                     "channel": 0,
                     "gain": 1.0
@@ -143,7 +143,7 @@
         ]
     },
     "capture.props": {
-        "node.name": "audio_effect.t2-91-speakers",
+        "node.name": "audio_effect.t2-81-speakers",
         "media.class": "Audio/Sink",
         "audio.channels": "2",
         "audio.position": ["FL", "FR"],
@@ -151,19 +151,18 @@
         "audio.allowed-rates": [48000, 44100],
         "node.virtual": "false",
         "priority.session": 1500,
-        "state.default-volume": 0.343,
+        "state.default-volume": 0.75,
         "device.icon-name": "audio-speakers"
     },
     "playback.props": {
-        "node.name": "effect_output.t2-91-speakers",
-        "node.description": "MacBook Air 9,1 Speakers DSP Out",
-        "media.name": "MacBook Air 9,1 Speakers DSP Out",
+        "node.name": "effect_output.t2-81-speakers",
+        "node.description": "MacBook Air 8,1 Speakers DSP Out",
+        "media.name": "MacBook Air 8,1 Speakers DSP Out",
         "target.object": "alsa_output.platform-sound.RawSpeakers",
         "node.dont-fallback": "true",
         "node.passive": "true",
         "audio.channels": "2",
         "audio.allowed-rates": [48000, 44100],
-        "audio.position": ["FL", "FR"]
+        "audio.position": ["AUX0", "AUX1"]
     }
 }
-

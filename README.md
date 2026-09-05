@@ -5,30 +5,20 @@ Based on Asahi Linux userspace audio configuration.
 This project is part of [T2 kernel team](https://wiki.t2linux.org/).
 
 The project aims to create Pipewire filtechain configs to adjust the audio levels for buildin microphone and speakers in Linux. 
-Thanks to Asahi Linux, chadmed, Drakelerex, Manawyrm and deqrocks.
+Thanks to Asahi Linux, chadmed, Drakelerex, Manawyrm, KaiT2en and deqrocks.
 
 ## Supported models:
-    
-    # MacBook Pro 16 2019: Id: 16_1, 16_2 and 16_4
 
-    The project has been adjusted to test Asahi Linux audio workflow on a MacBook Por 16 2019 T2 audio driver.
-
-    The Impulse files were created measuring speakers with REW. For Apple mic, using triforce-lv2 plugins.
-
-    For more information about Asahi audio, please visit the original project at asahi-audio
-
-    Using chadmed bankstown-lv2 and triforce-lv2 plugins. 
-
-    
-    # MacBook Air 2020: Id: 9_1
-
-    The project has been adjusted to test Asahi Linux audio workflow on a MacBook Air 2020 with T2 audio driver.
-
-    The Impulse files for the M1 Macbook Air J313 made by Asahi Linux were used because I believe that it has the same speakers as the 2020 Intel MacBook Air
-
-    For more information about Asahi audio, please visit the original project at asahi-audio
-
-
+- MacBookAir8,1 (`8_1`)
+- MacBookAir8,2 (`8_2`)
+- MacBookAir9,1 (`9_1`)
+- MacBookPro15,1 (`15_1`)
+- MacBookPro15,2 (`15_2`)
+- MacBookPro15,4 (`15_4`)
+- MacBookPro16,1 (`16_1`)
+- MacBookPro16,2 (`16_2`)
+- MacBookPro16,3 (`16_3`)
+- MacBookPro16,4 (`16_4`)
 
 ## Installation instructions
 

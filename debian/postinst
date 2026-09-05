@@ -5,10 +5,21 @@
 # Same logic as install.sh; runs as root at package configure. See INSTALL_PATHS.md.
 
 CONFIG_DIR="/usr/share/t2-apple-audio-dsp/configs"
-AUDIO_DIR="/usr/share/t2-linux-audio"
+AUDIO_DIR="/usr/share/t2linux-audio"
 
-# Model dict: "model_id dir_name ..." — add more models here (POSIX sh compatible)
-MODEL_DICT="MacBookAir9,1 9_1 MacBookPro15,1 15_1 MacBookPro16,1 16_1 MacBookPro16,2 16_2 MacBookPro16,4 16_4"
+# Model dict: "model_id dir_name" pairs (POSIX sh compatible)
+MODEL_DICT="
+MacBookAir8,1  8_1
+MacBookAir8,2  8_2
+MacBookAir9,1  9_1
+MacBookPro15,1 15_1
+MacBookPro15,2 15_2
+MacBookPro15,4 15_4
+MacBookPro16,1 16_1
+MacBookPro16,2 16_2
+MacBookPro16,3 16_3
+MacBookPro16,4 16_4
+"
 
 get_model_dir() {
     model="$1"
@@ -69,26 +80,27 @@ fi
 echo "Detected model: ${MODEL} (using directory: ${MODEL_DIR})"
 echo "Installing DSP config for ${MODEL}"
 
-# Install WirePlumber DSP config (uses node.software-dsp module like Asahi Linux)
-if ls ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf 1> /dev/null 2>&1; then
-    echo "Copying WirePlumber DSP config to /etc/wireplumber/wireplumber.conf.d"
-    mkdir -p /etc/wireplumber/wireplumber.conf.d
-    cp ${CONFIG_DIR}/${MODEL_DIR}/*-dsp.conf /etc/wireplumber/wireplumber.conf.d/
+# Rename the t2bce_audio ALSA card id to t2-<model_dir> (e.g. t2-16_1).
+# Full DMI names like t2-MacBookPro16,1 exceed ALSA's 15-character id and truncate.
+UDEV_SRC="${CONFIG_DIR}/99-t2-audio-rename.rules"
+if [ -f "$UDEV_SRC" ]; then
+    echo "Installing udev rule to /etc/udev/rules.d/99-t2-audio-rename.rules (id=t2-${MODEL_DIR})"
+    sed "s/@MODEL_DIR@/${MODEL_DIR}/g" "$UDEV_SRC" > /etc/udev/rules.d/99-t2-audio-rename.rules
+    chmod 0644 /etc/udev/rules.d/99-t2-audio-rename.rules
+    if command -v udevadm >/dev/null 2>&1; then
+        udevadm control --reload-rules
+        udevadm trigger --subsystem-match=sound --action=change
+    fi
 fi
 
-# wav, json, and Lua scripts are in /usr/share/t2-linux-audio/${MODEL_DIR}
+# Install WirePlumber config (alsa.id rules + per-model DSP graphs)
+echo "Copying WirePlumber DSP config to /etc/wireplumber/wireplumber.conf.d"
+mkdir -p /etc/wireplumber/wireplumber.conf.d
+cp "${CONFIG_DIR}/wireplumber.conf" /etc/wireplumber/wireplumber.conf.d/50-t2-audio.conf
+
+# wav and json files are in /usr/share/t2linux-audio/${MODEL_DIR}
 # (Already installed there by the package; no copy step.)
-echo "DSP graphs, wav files, and Lua scripts are in /usr/share/t2-linux-audio/${MODEL_DIR} (from package)"
-
-# Create symlink for WirePlumber to find Lua scripts
-if ls /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua 1> /dev/null 2>&1; then
-    echo "Creating symlinks for WirePlumber Lua scripts"
-    mkdir -p /usr/share/wireplumber/scripts/device
-    for lua_file in /usr/share/t2-linux-audio/${MODEL_DIR}/*.lua; do
-        lua_basename=$(basename "$lua_file")
-        ln -sf "$lua_file" /usr/share/wireplumber/scripts/device/"$lua_basename"
-    done
-fi
+echo "DSP graphs and wav files are in /usr/share/t2linux-audio/${MODEL_DIR} (from package)"
 
 # Clean up old PipeWire configurations (now using WirePlumber for both speakers and mic)
 OLD_MODEL_ID=$(echo "$MODEL_DIR" | tr -d '_')

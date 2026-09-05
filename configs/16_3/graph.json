@@ -1,6 +1,6 @@
 {
-    "node.description": "MacBook Pro 16,2 DSP Speakers",
-    "media.name": "MacBook Pro 16,2 DSP Speakers",
+    "node.description": "MacBook Pro 16,3 DSP Speakers",
+    "media.name": "MacBook Pro 16,3 DSP Speakers",
     "filter.graph": {
         "nodes": [
             {
@@ -9,12 +9,12 @@
                 "name": "bassex",
                 "control": {
                     "bypass": 0,
-                    "amt": 1.4,
-                    "sat_second": 1.05,
-                    "sat_third": 1.6,
-                    "blend": 1.0,
-                    "ceil": 220.0,
-                    "floor": 140.0
+                    "amt": 3.0,
+                    "sat_second": 1.5,
+                    "sat_third": 1.5,
+                    "blend": 0.75,
+                    "ceil": 150.0,
+                    "floor": 40.0
                 }
             },
             {
@@ -43,10 +43,10 @@
                 "name": "convFL",
                 "config": {
                     "filename": [
-                        "/usr/share/t2linux-audio/16_2/front-44.wav",
-                        "/usr/share/t2linux-audio/16_2/front-48.wav",
-                        "/usr/share/t2linux-audio/16_2/front-96.wav",
-                        "/usr/share/t2linux-audio/16_2/front-192.wav"
+                        "/usr/share/t2linux-audio/16_3/front-44.wav",
+                        "/usr/share/t2linux-audio/16_3/front-48.wav",
+                        "/usr/share/t2linux-audio/16_3/front-96.wav",
+                        "/usr/share/t2linux-audio/16_3/front-192.wav"
                     ],
                     "channel": 0,
                     "gain": 0.92
@@ -58,10 +58,10 @@
                 "name": "convFR",
                 "config": {
                     "filename": [
-                        "/usr/share/t2linux-audio/16_2/front-44.wav",
-                        "/usr/share/t2linux-audio/16_2/front-48.wav",
-                        "/usr/share/t2linux-audio/16_2/front-96.wav",
-                        "/usr/share/t2linux-audio/16_2/front-192.wav"
+                        "/usr/share/t2linux-audio/16_3/front-44.wav",
+                        "/usr/share/t2linux-audio/16_3/front-48.wav",
+                        "/usr/share/t2linux-audio/16_3/front-96.wav",
+                        "/usr/share/t2linux-audio/16_3/front-192.wav"
                     ],
                     "channel": 0,
                     "gain": 0.92
@@ -73,10 +73,10 @@
                 "name": "convRL",
                 "config": {
                     "filename": [
-                        "/usr/share/t2linux-audio/16_2/rear-44.wav",
-                        "/usr/share/t2linux-audio/16_2/rear-48.wav",
-                        "/usr/share/t2linux-audio/16_2/rear-96.wav",
-                        "/usr/share/t2linux-audio/16_2/rear-192.wav"
+                        "/usr/share/t2linux-audio/16_3/rear-44.wav",
+                        "/usr/share/t2linux-audio/16_3/rear-48.wav",
+                        "/usr/share/t2linux-audio/16_3/rear-96.wav",
+                        "/usr/share/t2linux-audio/16_3/rear-192.wav"
                     ],
                     "channel": 0,
                     "gain": 0.92
@@ -88,10 +88,10 @@
                 "name": "convRR",
                 "config": {
                     "filename": [
-                        "/usr/share/t2linux-audio/16_2/rear-44.wav",
-                        "/usr/share/t2linux-audio/16_2/rear-48.wav",
-                        "/usr/share/t2linux-audio/16_2/rear-96.wav",
-                        "/usr/share/t2linux-audio/16_2/rear-192.wav"
+                        "/usr/share/t2linux-audio/16_3/rear-44.wav",
+                        "/usr/share/t2linux-audio/16_3/rear-48.wav",
+                        "/usr/share/t2linux-audio/16_3/rear-96.wav",
+                        "/usr/share/t2linux-audio/16_3/rear-192.wav"
                     ],
                     "channel": 0,
                     "gain": 0.92
@@ -222,7 +222,7 @@
         ]
     },
     "capture.props": {
-        "node.name": "audio_effect.t2-162-speakers",
+        "node.name": "audio_effect.t2-163-speakers",
         "media.class": "Audio/Sink",
         "audio.channels": "2",
         "audio.position": ["FL", "FR"],
@@ -230,18 +230,18 @@
         "device.api": "dsp",
         "node.virtual": "false",
         "priority.session": 1500,
-        "state.default-volume": 0.343,
+        "state.default-volume": 0.75,
         "device.icon-name": "audio-speakers"
     },
     "playback.props": {
-        "node.name": "effect_output.t2-162-speakers",
-        "node.description": "MacBook Pro 16,2 DSP Speakers Out",
-        "media.name": "MacBook Pro 16,2 DSP Speakers Out",
+        "node.name": "effect_output.t2-163-speakers",
+        "node.description": "MacBook Pro 16,3 DSP Speakers Out",
+        "media.name": "MacBook Pro 16,3 DSP Speakers Out",
         "target.object": "alsa_output.platform-sound.RawSpeakers",
         "node.dont-fallback": "true",
         "node.passive": "true",
         "audio.channels": "4",
         "audio.allowed-rates": [96000, 88200, 48000, 44100],
-        "audio.position": ["FL", "FR", "RL", "RR"]
+        "audio.position": ["AUX0", "AUX1", "AUX2", "AUX3"]
     }
 }
