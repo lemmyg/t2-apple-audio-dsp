@@ -1,3 +1,6 @@
+Newer and experimental DSP configurations are available in the [KaiT2en](https://kait2en.org/) project. 
+This project remains available for reference.
+
 
 ### T2 Linux Audio DSP configuration.
 
